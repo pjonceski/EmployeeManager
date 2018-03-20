@@ -6,7 +6,7 @@ import java.lang.annotation.RetentionPolicy;
 import javax.inject.Scope;
 
 /**
- * If this scope is added the variable instances will live as long as the fragment exists.
+ * If this scope is added the variable instances will live as long as the activity exists.
  */
 @Scope
 @Retention(RetentionPolicy.RUNTIME)

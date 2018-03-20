@@ -8,6 +8,8 @@ import dagger.android.AndroidInjectionModule;
 import dagger.android.AndroidInjector;
 import dagger.android.support.AndroidSupportInjectionModule;
 import mk.pjonceski.empleyeemanager.App;
+import mk.pjonceski.empleyeemanager.di.data.RepositoriesModule;
+import mk.pjonceski.empleyeemanager.di.data.local.LocalDataSourceModule;
 
 /**
  * The main AppComponent class for Dagger.
@@ -16,7 +18,10 @@ import mk.pjonceski.empleyeemanager.App;
 @Singleton
 @Component(modules = {AndroidInjectionModule.class,
         AppModule.class,
-        ActivityBindingsModule.class})
+        ActivityBindingsModule.class,
+        RepositoriesModule.class,
+        LocalDataSourceModule.class
+})
 public interface AppComponent extends AndroidInjector<App> {
     @Override
     void inject(App instance);
