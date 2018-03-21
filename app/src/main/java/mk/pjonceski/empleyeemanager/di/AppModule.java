@@ -29,13 +29,13 @@ public abstract class AppModule {
     @Singleton
     @Provides
     static AppExecutors provideAppExecutors() {
-        return new AppExecutors(Executors.newCachedThreadPool());
+        return new AppExecutors(Executors.newCachedThreadPool(), AppExecutors.createNetworkThreadExecutor());
     }
 
     @Singleton
     @Provides
     static RetrofitApi provideApiClient(App app) {
-        AppCredentials appCredentials=new AppCredentials("http://hiring.rewardgateway.net/",
+        AppCredentials appCredentials = new AppCredentials("http://hiring.rewardgateway.net/",
                 "medium",
                 "medium");
         return RetrofitApiClient.createClient(appCredentials.getBaseUrl(),
