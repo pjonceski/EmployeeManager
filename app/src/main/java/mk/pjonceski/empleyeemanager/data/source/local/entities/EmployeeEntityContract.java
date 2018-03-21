@@ -29,7 +29,7 @@ public final class EmployeeEntityContract {
     }
 /**Creates table employee*/
     public static final String CREATE_TABLE_EMPLOYEE = String.format("CREATE TABLE %s (" +
-                    "%s INTEGER PRIMARY KEY AUTOINCREMENT, %s TEXT, %s TEXT, %s TEXT, %s TEXT, %s TEXT)",
+                    "%s INTEGER PRIMARY KEY , %s TEXT, %s TEXT, %s TEXT, %s TEXT, %s TEXT)",
             TABLE_EMPLOYEE,
             EmployeeColumns._ID,
             EmployeeColumns.NAME,
