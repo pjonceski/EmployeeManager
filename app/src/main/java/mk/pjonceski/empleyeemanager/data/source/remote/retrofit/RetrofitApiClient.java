@@ -1,4 +1,4 @@
-package mk.pjonceski.empleyeemanager.data.net.retrofit;
+package mk.pjonceski.empleyeemanager.data.source.remote.retrofit;
 
 import android.support.annotation.Nullable;
 

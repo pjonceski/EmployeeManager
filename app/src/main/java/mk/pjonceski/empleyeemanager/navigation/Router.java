@@ -7,6 +7,13 @@ import android.support.annotation.Nullable;
  * In this class are defined methods for the navigating inside the application.
  */
 public interface Router {
+    final class BundleKeys {
+        private BundleKeys() {
+        }
+
+        public static final String EMPLOYEE = "employee";
+    }
+
     /**
      * This method enables navigation to {@link mk.pjonceski.empleyeemanager.ui.features.employee_details_feature.EmployeeDetailsActivity}
      *

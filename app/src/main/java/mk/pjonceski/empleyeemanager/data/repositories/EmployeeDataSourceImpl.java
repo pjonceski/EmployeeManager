@@ -13,18 +13,17 @@ import mk.pjonceski.empleyeemanager.utils.Optional;
  */
 public class EmployeeDataSourceImpl implements EmployeeDataSource {
     private EmployeeLocalDataSource employeeLocalDataSource;
+    private EmployeeDataSource employeeRemoteDataSource;
 
-    public EmployeeDataSourceImpl(EmployeeLocalDataSource employeeLocalDataSource) {
+    public EmployeeDataSourceImpl(EmployeeLocalDataSource employeeLocalDataSource
+            , EmployeeDataSource employeeRemoteDataSource) {
         this.employeeLocalDataSource = employeeLocalDataSource;
+        this.employeeRemoteDataSource = employeeRemoteDataSource;
     }
 
     @Override
     public Flowable<List<Employee>> getAllEmployees() {
-        return null;
+        return employeeRemoteDataSource.getAllEmployees();
     }
 
-    @Override
-    public Single<Optional<Employee>> getEmployeeById(int id) {
-        return null;
-    }
 }

@@ -1,4 +1,4 @@
-package mk.pjonceski.empleyeemanager.di.data.local;
+package mk.pjonceski.empleyeemanager.di.data.source;
 
 import dagger.Module;
 import dagger.Provides;

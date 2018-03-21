@@ -61,12 +61,12 @@ public class EmployeeLocalDataSourceImpl implements EmployeeLocalDataSource {
 
     @Override
     public Flowable<List<Employee>> getAllEmployees() {
-        return PublishersHelper.createFlowable(getAllEmployeesCallable(), null);
+        return PublishersHelper.createFlowable(getAllEmployeesCallable());
     }
 
     @Override
     public Single<Optional<Employee>> getEmployeeById(int id) {
-        return PublishersHelper.createSingle(getEmployeeWithIdCallable(id), null);
+        return PublishersHelper.createSingle(getEmployeeWithIdCallable(id));
     }
 
     /**

@@ -3,6 +3,7 @@ package mk.pjonceski.empleyeemanager.di.features;
 import dagger.Binds;
 import dagger.Module;
 import dagger.Provides;
+import mk.pjonceski.empleyeemanager.data.repositories.EmployeeDataSource;
 import mk.pjonceski.empleyeemanager.navigation.Router;
 import mk.pjonceski.empleyeemanager.ui.features.employee_preview_feature.EmployeePreviewActivity;
 import mk.pjonceski.empleyeemanager.ui.features.employee_preview_feature.EmployeePreviewContract;
@@ -20,8 +21,8 @@ public abstract class EmployeePreviewModule {
     abstract EmployeePreviewContract.View bindView(EmployeePreviewActivity employeePreviewActivity);
 
     @Provides
-    static EmployeePreviewContract.Interactor provideInteractor() {
-        return new EmployeePreviewInteractorImpl();
+    static EmployeePreviewContract.Interactor provideInteractor(EmployeeDataSource employeeDataSource) {
+        return new EmployeePreviewInteractorImpl(employeeDataSource);
     }
 
     @Provides

@@ -28,8 +28,8 @@ public final class DataMappers {
         ContentValues contentValues = new ContentValues();
         contentValues.put(EmployeeEntityContract.EmployeeColumns.NAME, employee.getName());
         contentValues.put(EmployeeEntityContract.EmployeeColumns.BIOGRAPHY, employee.getBiography());
-        contentValues.put(EmployeeEntityContract.EmployeeColumns.COMPANY_NAME, employee.getCompany_name());
-        contentValues.put(EmployeeEntityContract.EmployeeColumns.JOB_TITLE, employee.getJob_title());
+        contentValues.put(EmployeeEntityContract.EmployeeColumns.COMPANY_NAME, employee.getCompanyName());
+        contentValues.put(EmployeeEntityContract.EmployeeColumns.JOB_TITLE, employee.getJobTitle());
         contentValues.put(EmployeeEntityContract.EmployeeColumns.AVATAR, employee.getAvatar());
         return contentValues;
     }
@@ -52,8 +52,8 @@ public final class DataMappers {
             employee.setId(cursor.getInt(cursor.getColumnIndex(EmployeeEntityContract.EmployeeColumns._ID)));
             employee.setName(cursor.getString(cursor.getColumnIndex(EmployeeEntityContract.EmployeeColumns.NAME)));
             employee.setBiography(cursor.getString(cursor.getColumnIndex(EmployeeEntityContract.EmployeeColumns.BIOGRAPHY)));
-            employee.setCompany_name(cursor.getString(cursor.getColumnIndex(EmployeeEntityContract.EmployeeColumns.COMPANY_NAME)));
-            employee.setJob_title(cursor.getString(cursor.getColumnIndex(EmployeeEntityContract.EmployeeColumns.JOB_TITLE)));
+            employee.setCompanyName(cursor.getString(cursor.getColumnIndex(EmployeeEntityContract.EmployeeColumns.COMPANY_NAME)));
+            employee.setJobTitle(cursor.getString(cursor.getColumnIndex(EmployeeEntityContract.EmployeeColumns.JOB_TITLE)));
             employee.setAvatar(cursor.getString(cursor.getColumnIndex(EmployeeEntityContract.EmployeeColumns.AVATAR)));
         }
         return employee;

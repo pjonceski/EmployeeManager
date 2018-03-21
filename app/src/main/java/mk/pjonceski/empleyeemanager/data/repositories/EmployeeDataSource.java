@@ -15,5 +15,4 @@ public interface EmployeeDataSource {
 
     Flowable<List<Employee>> getAllEmployees();
 
-    Single<Optional<Employee>> getEmployeeById(int id);
 }

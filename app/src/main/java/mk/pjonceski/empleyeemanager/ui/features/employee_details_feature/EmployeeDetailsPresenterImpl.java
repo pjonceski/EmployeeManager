@@ -1,5 +1,6 @@
 package mk.pjonceski.empleyeemanager.ui.features.employee_details_feature;
 
+import mk.pjonceski.empleyeemanager.data.models.Employee;
 import mk.pjonceski.empleyeemanager.ui.base_mvp.presenter.PresenterTemplate;
 
 /**
@@ -15,6 +16,10 @@ public class EmployeeDetailsPresenterImpl
     @Override
     public void create() {
         super.create();
+        if (view != null) {
+            Employee employee = view.getEmployee();
+
+        }
     }
 
     @Override
@@ -25,6 +30,9 @@ public class EmployeeDetailsPresenterImpl
     @Override
     public void subscribe() {
         super.subscribe();
+        if (view != null) {
+            Employee employee = view.getEmployee();
+        }
     }
 
     @Override

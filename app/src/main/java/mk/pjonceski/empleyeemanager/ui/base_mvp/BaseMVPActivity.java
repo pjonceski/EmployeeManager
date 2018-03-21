@@ -4,6 +4,7 @@ import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 import android.support.v7.app.AppCompatActivity;
 
 import javax.inject.Inject;
@@ -19,7 +20,7 @@ import mk.pjonceski.empleyeemanager.ui.base_mvp.presenter.BasePresenter;
 /**
  * Activity template which is blueprint for other activities that are implementing mvp pattern.
  */
-public abstract class BaseMVPActivity extends AppCompatActivity implements HasFragmentInjector,BaseView{
+public abstract class BaseMVPActivity extends AppCompatActivity implements HasFragmentInjector, BaseView {
     /**
      * Should return the presenter for this Activity.
      *
@@ -35,6 +36,14 @@ public abstract class BaseMVPActivity extends AppCompatActivity implements HasFr
     public abstract @LayoutRes
     int getLayoutId();
 
+    /**
+     * Should return the string resource for the title of the activity.
+     *
+     * @return the id of the string.
+     */
+    public abstract @StringRes
+    int getScreenTitle();
+
     @Inject
     DispatchingAndroidInjector<Fragment> fragmentDispatchingAndroidInjector;
 
@@ -45,27 +54,29 @@ public abstract class BaseMVPActivity extends AppCompatActivity implements HasFr
         ButterKnife.bind(this);
         AndroidInjection.inject(this);
         getBasePresenter().create();
-        ((App)getApplicationContext()).setCurrentActivity(this);
+        setTitle(getScreenTitle());
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         getBasePresenter().subscribe();
+        ((App) getApplicationContext()).setCurrentActivity(this);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         getBasePresenter().unsubscribe();
+        ((App) getApplicationContext()).setCurrentActivity(null);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         getBasePresenter().destroy();
-        ((App)getApplicationContext()).setCurrentActivity(null);
     }
+
 
     @Override
     public AndroidInjector<Fragment> fragmentInjector() {

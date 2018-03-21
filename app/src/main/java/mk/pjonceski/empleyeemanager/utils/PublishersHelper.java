@@ -22,17 +22,12 @@ public final class PublishersHelper {
      * * This method creates {@link Flowable} using the provided {@link Callable}.
      *
      * @param iCallable the input callable.
-     * @param exception the exception if any.
      * @param <T>       the data to be published.
      * @return the Flowable
      */
-    public static <T> Flowable<T> createFlowable(final Callable<T> iCallable, @Nullable final Exception exception) {
+    public static <T> Flowable<T> createFlowable(final Callable<T> iCallable) {
         return Flowable.create(emitter -> {
-            if (exception == null) {
-                emitter.onNext(iCallable.call());
-            } else {
-                emitter.onError(exception);
-            }
+            emitter.onNext(iCallable.call());
         }, BackpressureStrategy.BUFFER);
     }
 
@@ -40,17 +35,12 @@ public final class PublishersHelper {
      * This method creates {@link Single} using the provided {@link Callable}.
      *
      * @param iCallable the input callable.
-     * @param exception the exception if any.
      * @param <T>       the data to be published.
      * @return the Single
      */
-    public static <T> Single<T> createSingle(Callable<T> iCallable, @Nullable Exception exception) {
+    public static <T> Single<T> createSingle(Callable<T> iCallable) {
         return Single.create(emitter -> {
-            if (exception != null) {
-                emitter.onError(exception);
-            } else {
-                emitter.onSuccess(iCallable.call());
-            }
+            emitter.onSuccess(iCallable.call());
         });
     }
 }

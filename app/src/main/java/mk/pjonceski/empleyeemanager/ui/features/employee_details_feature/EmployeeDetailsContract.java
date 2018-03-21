@@ -1,5 +1,6 @@
 package mk.pjonceski.empleyeemanager.ui.features.employee_details_feature;
 
+import mk.pjonceski.empleyeemanager.data.models.Employee;
 import mk.pjonceski.empleyeemanager.ui.base_mvp.BaseInteractor;
 import mk.pjonceski.empleyeemanager.ui.base_mvp.BaseView;
 import mk.pjonceski.empleyeemanager.ui.base_mvp.presenter.BasePresenter;
@@ -13,6 +14,9 @@ public interface EmployeeDetailsContract {
      * Defined all methods for interaction with the view.
      */
     interface View extends BaseView {
+        Employee getEmployee();
+
+        void populateScreenWithEmployee(Employee employee);
     }
 
     /**

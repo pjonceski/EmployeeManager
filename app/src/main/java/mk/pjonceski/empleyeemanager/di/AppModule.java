@@ -8,8 +8,9 @@ import dagger.Module;
 import dagger.Provides;
 import mk.pjonceski.empleyeemanager.App;
 import mk.pjonceski.empleyeemanager.data.AppCredentials;
-import mk.pjonceski.empleyeemanager.data.net.retrofit.RetrofitApi;
-import mk.pjonceski.empleyeemanager.data.net.retrofit.RetrofitApiClient;
+import mk.pjonceski.empleyeemanager.data.source.local.AppDBHelper;
+import mk.pjonceski.empleyeemanager.data.source.remote.retrofit.RetrofitApi;
+import mk.pjonceski.empleyeemanager.data.source.remote.retrofit.RetrofitApiClient;
 import mk.pjonceski.empleyeemanager.navigation.Router;
 import mk.pjonceski.empleyeemanager.navigation.RouterImpl;
 import mk.pjonceski.empleyeemanager.utils.AppExecutors;
@@ -24,6 +25,12 @@ public abstract class AppModule {
     @Provides
     static Router provideRouter(App app) {
         return new RouterImpl(app);
+    }
+
+    @Singleton
+    @Provides
+    static AppDBHelper provideAppDBHelper(App app) {
+        return new AppDBHelper(app);
     }
 
     @Singleton
