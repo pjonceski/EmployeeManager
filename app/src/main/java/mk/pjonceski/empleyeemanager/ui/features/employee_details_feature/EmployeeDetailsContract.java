@@ -14,8 +14,6 @@ public interface EmployeeDetailsContract {
      * Defined all methods for interaction with the view.
      */
     interface View extends BaseView {
-        Employee getEmployee();
-
         void populateScreenWithEmployee(Employee employee);
     }
 

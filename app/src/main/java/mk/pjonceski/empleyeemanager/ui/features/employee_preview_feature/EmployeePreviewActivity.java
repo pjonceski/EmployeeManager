@@ -95,4 +95,5 @@ public class EmployeePreviewActivity extends BaseMVPActivity implements Employee
     void refreshDataButtonClick() {
         presenter.onButtonRefreshDataClick();
     }
+    
 }

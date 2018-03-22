@@ -2,4 +2,6 @@
     <string name="app_name">EmpleyeeManager</string>
     <string name="employees_preview_title">Employee preview</string>
     <string name="employees_details_title">Employee details</string>
+    <string name="company_label">Company</string>
+    <string name="biography_label">Biography</string>
 </resources>

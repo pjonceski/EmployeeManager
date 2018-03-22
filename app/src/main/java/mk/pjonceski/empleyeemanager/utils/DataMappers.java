@@ -26,6 +26,7 @@ public final class DataMappers {
      */
     public static ContentValues createFromEmployee(@NonNull Employee employee) {
         ContentValues contentValues = new ContentValues();
+        contentValues.put(EmployeeEntityContract.EmployeeColumns._ID, employee.getId());
         contentValues.put(EmployeeEntityContract.EmployeeColumns.NAME, employee.getName());
         contentValues.put(EmployeeEntityContract.EmployeeColumns.BIOGRAPHY, employee.getBiography());
         contentValues.put(EmployeeEntityContract.EmployeeColumns.COMPANY_NAME, employee.getCompanyName());

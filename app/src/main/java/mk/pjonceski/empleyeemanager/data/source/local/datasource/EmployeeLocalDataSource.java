@@ -1,6 +1,6 @@
 package mk.pjonceski.empleyeemanager.data.source.local.datasource;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import io.reactivex.Single;
 import mk.pjonceski.empleyeemanager.data.models.Employee;
@@ -19,7 +19,7 @@ public interface EmployeeLocalDataSource extends EmployeeDataSource {
      *
      * @param employeesList the list of employees
      */
-    void reinsertAll(ArrayList<Employee> employeesList);
+    void reinsertAll(List<Employee> employeesList);
 
     /**
      * Return single employee for the provided id.

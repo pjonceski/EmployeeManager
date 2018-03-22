@@ -15,6 +15,7 @@ import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.HasFragmentInjector;
 import mk.pjonceski.empleyeemanager.App;
+import mk.pjonceski.empleyeemanager.navigation.Router;
 import mk.pjonceski.empleyeemanager.ui.base_mvp.presenter.BasePresenter;
 
 /**
@@ -55,6 +56,14 @@ public abstract class BaseMVPActivity extends AppCompatActivity implements HasFr
         AndroidInjection.inject(this);
         getBasePresenter().create();
         setTitle(getScreenTitle());
+        if (savedInstanceState != null) {
+            getBasePresenter().onRestoreState(savedInstanceState);
+        } else {
+            Bundle intentBundle = getIntent().getExtras();
+            if (intentBundle != null) {
+                getBasePresenter().onRestoreState(intentBundle);
+            }
+        }
     }
 
     @Override
@@ -86,5 +95,11 @@ public abstract class BaseMVPActivity extends AppCompatActivity implements HasFr
     @Override
     public void finishActivity() {
         this.finish();
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        getBasePresenter().onSaveState(outState);
     }
 }

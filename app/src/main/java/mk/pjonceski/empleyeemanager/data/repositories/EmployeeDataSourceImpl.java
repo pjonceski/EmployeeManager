@@ -23,7 +23,10 @@ public class EmployeeDataSourceImpl implements EmployeeDataSource {
 
     @Override
     public Flowable<List<Employee>> getAllEmployees() {
-        return employeeRemoteDataSource.getAllEmployees();
+        return employeeRemoteDataSource.getAllEmployees()
+                .doOnNext(employees -> {
+                    employeeLocalDataSource.reinsertAll(employees);
+                });
     }
 
 }

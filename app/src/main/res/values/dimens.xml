@@ -4,7 +4,7 @@
     <dimen name="recycler_padding">10dp</dimen>
     <dimen name="progress_bar_side">50dp</dimen>
     <dimen name="employee_item_height">100dp</dimen>
-    <dimen name="details_screen_image_height">200dp</dimen>
+    <dimen name="details_screen_image_side">200dp</dimen>
     <dimen name="floating_button_side">56dp</dimen>
     <dimen name="floating_button_margin">20dp</dimen>
 </resources>

@@ -43,12 +43,17 @@ public class EmployeeLocalDataSourceImpl implements EmployeeLocalDataSource {
     }
 
     @Override
-    public void reinsertAll(ArrayList<Employee> employeesList) {
+    public void reinsertAll(@Nullable List<Employee> employeesList) {
+        if (employeesList == null) {
+            return;
+        }
         appExecutors.getDiskIO().execute(() -> {
                     SQLiteDatabase db = appDBHelper.getWritableDatabase();
                     db.beginTransaction();
                     db.delete(EmployeeEntityContract.TABLE_EMPLOYEE, null, null);
-                    for (Employee employee : employeesList) {
+                    for (int i = 0; i < employeesList.size(); i++) {
+                        Employee employee = employeesList.get(i);
+                        employee.setId(i + 1);
                         db.insert(EmployeeEntityContract.TABLE_EMPLOYEE,
                                 null,
                                 DataMappers.createFromEmployee(employee));

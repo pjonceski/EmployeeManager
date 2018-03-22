@@ -2,6 +2,7 @@ package mk.pjonceski.empleyeemanager.ui.features.employee_details_feature;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.MenuItem;
 
 import javax.inject.Inject;
@@ -46,11 +47,6 @@ public class EmployeeDetailsActivity extends BaseMVPActivity implements Employee
     }
 
     @Override
-    public Employee getEmployee() {
-        return (Employee) getIntent().getParcelableExtra(Router.BundleKeys.EMPLOYEE);
-    }
-
-    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
@@ -63,7 +59,6 @@ public class EmployeeDetailsActivity extends BaseMVPActivity implements Employee
 
     @Override
     public void populateScreenWithEmployee(Employee employee) {
-
-
+        Log.d("DSF", employee.getName());
     }
 }

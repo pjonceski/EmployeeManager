@@ -1,22 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="@dimen/screen_padding">
+    android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/employee_details_avatar"
-        android:layout_width="@dimen/details_screen_image_height"
-        android:layout_height="@dimen/details_screen_image_height"
-        android:layout_gravity="center_horizontal" />
-
-    <android.support.v7.widget.AppCompatTextView
-        android:id="@+id/employee_details_name"
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:textAppearanceMedium"
-        tools:text="name" />
+        android:orientation="vertical"
+        android:padding="@dimen/screen_padding">
 
-</LinearLayout>
+        <include
+            android:id="@+id/employee_details_avatar_container"
+            layout="@layout/employee_avatar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toRightOf="parent"
+            app:layout_constraintRight_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="parent" />
+
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/employee_details_company_label"
+            style="@style/Base.TextAppearance.AppCompat.Caption"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/company_label"
+            app:layout_constraintLeft_toRightOf="parent"
+            app:layout_constraintRight_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/employee_details_avatar_container" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/employee_details_company"
+            style="@style/Base.TextAppearance.AppCompat.Large"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toRightOf="parent"
+            app:layout_constraintRight_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/employee_details_company_label"
+            tools:text="Company" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/employee_details_biography_label"
+            style="@style/Base.TextAppearance.AppCompat.Caption"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/biography_label"
+            app:layout_constraintLeft_toRightOf="parent"
+            app:layout_constraintRight_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/employee_details_company" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/employee_details_biography"
+            style="@style/Base.TextAppearance.AppCompat.Large"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            app:layout_constraintLeft_toRightOf="parent"
+            app:layout_constraintRight_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/employee_details_biography_label"
+            tools:text="Bigroaphy" />
+
+
+    </android.support.constraint.ConstraintLayout>
+</ScrollView>

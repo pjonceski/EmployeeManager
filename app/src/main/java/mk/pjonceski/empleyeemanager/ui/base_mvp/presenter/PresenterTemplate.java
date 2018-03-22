@@ -1,6 +1,9 @@
 package mk.pjonceski.empleyeemanager.ui.base_mvp.presenter;
 
+import android.os.Bundle;
 import android.support.annotation.NonNull;
+
+import javax.annotation.Nonnull;
 
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
@@ -57,6 +60,16 @@ public class PresenterTemplate<V extends BaseView, I extends BaseInteractor> imp
 
     @Override
     public void unsubscribe() {
+
+    }
+
+    @Override
+    public void onSaveState(@Nonnull Bundle outState) {
+
+    }
+
+    @Override
+    public void onRestoreState(@NonNull Bundle savedState) {
 
     }
 
