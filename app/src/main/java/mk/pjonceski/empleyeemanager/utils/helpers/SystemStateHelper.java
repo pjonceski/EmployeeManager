@@ -15,7 +15,7 @@ import mk.pjonceski.empleyeemanager.App;
 public class SystemStateHelper {
     private App app;
 
-    public SystemStateHelper(App app) {
+    SystemStateHelper(App app) {
         this.app = app;
     }
 

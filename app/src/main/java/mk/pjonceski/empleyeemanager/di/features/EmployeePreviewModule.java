@@ -9,6 +9,7 @@ import mk.pjonceski.empleyeemanager.ui.features.employee_preview_feature.Employe
 import mk.pjonceski.empleyeemanager.ui.features.employee_preview_feature.EmployeePreviewContract;
 import mk.pjonceski.empleyeemanager.ui.features.employee_preview_feature.EmployeePreviewInteractorImpl;
 import mk.pjonceski.empleyeemanager.ui.features.employee_preview_feature.EmployeePreviewPresenterImpl;
+import mk.pjonceski.empleyeemanager.utils.helpers.Helpers;
 
 /**
  * Dagger module to provide instances for the injected variables
@@ -28,7 +29,8 @@ public abstract class EmployeePreviewModule {
     @Provides
     static EmployeePreviewContract.Presenter providePresenter(EmployeePreviewContract.View view,
                                                               EmployeePreviewContract.Interactor interactor,
-                                                              Router router) {
-        return new EmployeePreviewPresenterImpl(view, interactor, router);
+                                                              Router router,
+                                                              Helpers helpers) {
+        return new EmployeePreviewPresenterImpl(view, interactor, router,helpers);
     }
 }

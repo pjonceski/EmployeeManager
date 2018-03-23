@@ -1,6 +1,7 @@
 package mk.pjonceski.empleyeemanager.data.source.local.datasource;
 
 import java.util.List;
+import java.util.concurrent.Callable;
 
 import io.reactivex.Single;
 import mk.pjonceski.empleyeemanager.data.models.Employee;
@@ -30,4 +31,10 @@ public interface EmployeeLocalDataSource extends EmployeeDataSource {
      */
     Single<Optional<Employee>> getEmployeeById(int id);
 
+    /**
+     * Returns all employees from local database.
+     *
+     * @return callable that return all employes
+     */
+    Callable<List<Employee>> getAllEmployeesCallable();
 }

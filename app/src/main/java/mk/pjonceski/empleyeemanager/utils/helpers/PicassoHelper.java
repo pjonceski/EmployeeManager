@@ -19,7 +19,7 @@ public final class PicassoHelper {
     private AppExecutors appExecutors;
     private FileHelper fileHelper;
 
-    public PicassoHelper(AppExecutors appExecutors, FileHelper fileHelper) {
+    PicassoHelper(AppExecutors appExecutors, FileHelper fileHelper) {
         this.appExecutors = appExecutors;
         this.fileHelper = fileHelper;
     }

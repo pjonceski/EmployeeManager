@@ -79,12 +79,8 @@ public class EmployeeLocalDataSourceImpl implements EmployeeLocalDataSource {
         return PublishersHelper.createSingle(getEmployeeWithIdCallable(id));
     }
 
-    /**
-     * Returns all employees from local database.
-     *
-     * @return callable that return all employes
-     */
 
+    @Override
     public Callable<List<Employee>> getAllEmployeesCallable() {
         return () -> {
             List<Employee> employeeList = new ArrayList<>();
@@ -109,6 +105,7 @@ public class EmployeeLocalDataSourceImpl implements EmployeeLocalDataSource {
      *
      * @return callable that return employee or null if none
      */
+
     private Callable<Optional<Employee>> getEmployeeWithIdCallable(int id) {
         return () -> {
             Employee employee = null;

@@ -9,6 +9,7 @@ import io.reactivex.schedulers.Schedulers;
 import mk.pjonceski.empleyeemanager.data.models.Employee;
 import mk.pjonceski.empleyeemanager.navigation.Router;
 import mk.pjonceski.empleyeemanager.ui.base_mvp.presenter.PresenterTemplate;
+import mk.pjonceski.empleyeemanager.utils.helpers.Helpers;
 
 /**
  * Implementation for {@link EmployeePreviewContract.Presenter}
@@ -20,12 +21,14 @@ public class EmployeePreviewPresenterImpl
     private Disposable loadEmployeesListDisposable;
 
     private Handler mainHandler;
+    private Helpers helpers;
 
     public EmployeePreviewPresenterImpl(EmployeePreviewContract.View view,
                                         EmployeePreviewContract.Interactor interactor,
-                                        Router router) {
+                                        Router router, Helpers helpers) {
         super(view, interactor);
         this.router = router;
+        this.helpers = helpers;
         mainHandler = new Handler();
     }
 
@@ -35,8 +38,7 @@ public class EmployeePreviewPresenterImpl
         if (view != null) {
             view.showProgress();
             loadEmployeesList();
-            view.setOfflineIndicator();
-       /*     addDisposableToContainer(
+                   /*     addDisposableToContainer(
             interactor.getAllEmployees()
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
@@ -94,6 +96,11 @@ public class EmployeePreviewPresenterImpl
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(employees -> {
                             if (view != null) {
+                                if (helpers.getSharedPrefHelper().isDataOffline()) {
+                                    view.setOfflineIndicator();
+                                } else {
+                                    view.setOnlineIndicator();
+                                }
                                 view.hideProgress();
                                 view.populateEmployeesList(employees);
                             }

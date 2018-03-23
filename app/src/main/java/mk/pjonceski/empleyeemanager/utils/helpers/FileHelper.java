@@ -14,13 +14,17 @@ import java.io.IOException;
  */
 @SuppressWarnings("WeakerAccess")
 public final class FileHelper {
-    /**The directory which will server as local cache for avatar images.*/
+    /**
+     * The directory which will server as local cache for avatar images.
+     */
     private final static String AVATARS_CACHE_DIRECTORY_NAME = "avatars_directory";
-    /**The avatar image extension.*/
+    /**
+     * The avatar image extension.
+     */
     private final static String AVATAR_IMAGE_EXTENSION = ".png";
     private ContextWrapper contextWrapper;
 
-    public FileHelper(ContextWrapper contextWrapper) {
+    FileHelper(ContextWrapper contextWrapper) {
         this.contextWrapper = contextWrapper;
     }
 
@@ -39,6 +43,7 @@ public final class FileHelper {
     /**
      * This method returns the file for the image with provided name.
      * The images are from directory {@link #AVATARS_CACHE_DIRECTORY_NAME}
+     *
      * @param imageName the name of the image
      */
     @Nullable
