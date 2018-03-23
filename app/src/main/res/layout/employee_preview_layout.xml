@@ -13,7 +13,7 @@
             android:id="@+id/employee_preview_employee_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="@dimen/recycler_padding"
+            android:padding="@dimen/screen_padding"
             android:visibility="gone" />
 
         <ProgressBar

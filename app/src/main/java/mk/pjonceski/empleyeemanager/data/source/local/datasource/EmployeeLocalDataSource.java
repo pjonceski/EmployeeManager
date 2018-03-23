@@ -5,7 +5,7 @@ import java.util.List;
 import io.reactivex.Single;
 import mk.pjonceski.empleyeemanager.data.models.Employee;
 import mk.pjonceski.empleyeemanager.data.repositories.EmployeeDataSource;
-import mk.pjonceski.empleyeemanager.utils.Optional;
+import mk.pjonceski.empleyeemanager.data.models.Optional;
 
 /**
  * Contract for {@link EmployeeLocalDataSourceImpl}.

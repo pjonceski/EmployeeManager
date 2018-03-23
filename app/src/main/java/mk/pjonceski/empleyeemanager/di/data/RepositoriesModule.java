@@ -8,7 +8,8 @@ import dagger.Provides;
 import mk.pjonceski.empleyeemanager.data.repositories.EmployeeDataSource;
 import mk.pjonceski.empleyeemanager.data.repositories.EmployeeDataSourceImpl;
 import mk.pjonceski.empleyeemanager.data.source.local.datasource.EmployeeLocalDataSource;
-import mk.pjonceski.empleyeemanager.data.source.remote.datasource.EmployeeRemoteDataSourceImpl;
+import mk.pjonceski.empleyeemanager.data.source.remote.datasource.EmployeeRemoteDataSource;
+import mk.pjonceski.empleyeemanager.utils.helpers.Helpers;
 
 /**
  * Dagger Module to provide instances for {@link mk.pjonceski.empleyeemanager.data.repositories}
@@ -20,7 +21,8 @@ public abstract class RepositoriesModule {
     @Provides
     static EmployeeDataSource provideEmployeeDataSource(
             EmployeeLocalDataSource employeeLocalDataSource,
-            @Named(EmployeeRemoteDataSourceImpl.INJECTION_NAME) EmployeeDataSource employeeRemoteDataSource) {
-        return new EmployeeDataSourceImpl(employeeLocalDataSource, employeeRemoteDataSource);
+            EmployeeRemoteDataSource employeeRemoteDataSource,
+            Helpers helpers) {
+        return new EmployeeDataSourceImpl(employeeLocalDataSource, employeeRemoteDataSource, helpers);
     }
 }

@@ -18,6 +18,8 @@ import mk.pjonceski.empleyeemanager.R;
 import mk.pjonceski.empleyeemanager.data.models.Employee;
 import mk.pjonceski.empleyeemanager.ui.base_mvp.BaseMVPActivity;
 import mk.pjonceski.empleyeemanager.ui.base_mvp.presenter.BasePresenter;
+import mk.pjonceski.empleyeemanager.ui.features.employee_preview_feature.adapter.EmployeeListRecyclerAdapter;
+import mk.pjonceski.empleyeemanager.utils.helpers.Helpers;
 
 /**
  * In this activity list of all employees will be shown.
@@ -27,6 +29,8 @@ import mk.pjonceski.empleyeemanager.ui.base_mvp.presenter.BasePresenter;
 public class EmployeePreviewActivity extends BaseMVPActivity implements EmployeePreviewContract.View {
     @Inject
     EmployeePreviewContract.Presenter presenter;
+    @Inject
+    Helpers helpers;
 
     @BindView(R.id.employee_preview_employee_list)
     RecyclerView employeeListRecyclerView;
@@ -63,8 +67,8 @@ public class EmployeePreviewActivity extends BaseMVPActivity implements Employee
         employeeListRecyclerAdapter = new EmployeeListRecyclerAdapter(
                 employee -> {
                     presenter.onEmployeeChosenFromList(employee);
-                }
-        );
+                },
+                helpers);
         employeeListRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         employeeListRecyclerView.setAdapter(employeeListRecyclerAdapter);
     }
@@ -91,9 +95,20 @@ public class EmployeePreviewActivity extends BaseMVPActivity implements Employee
         employeeListRecyclerAdapter.setData(employeeList);
     }
 
+    @Override
+    public void setOfflineIndicator() {
+        setTitle(R.string.employees_preview_title_offline);
+    }
+
+    @Override
+    public void setOnlineIndicator() {
+        setTitle(R.string.employees_preview_title);
+
+    }
+
     @OnClick(R.id.employee_preview_refresh_data_button)
     void refreshDataButtonClick() {
         presenter.onButtonRefreshDataClick();
     }
-    
+
 }

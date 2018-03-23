@@ -1,5 +1,7 @@
-package mk.pjonceski.empleyeemanager.ui.features.employee_preview_feature;
+package mk.pjonceski.empleyeemanager.ui.features.employee_preview_feature.adapter;
 
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.AppCompatTextView;
@@ -9,7 +11,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,6 +24,9 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import mk.pjonceski.empleyeemanager.R;
 import mk.pjonceski.empleyeemanager.data.models.Employee;
+import mk.pjonceski.empleyeemanager.ui.features.employee_preview_feature.EmployeePreviewContract;
+import mk.pjonceski.empleyeemanager.utils.helpers.Helpers;
+import mk.pjonceski.empleyeemanager.utils.helpers.PicassoHelper;
 
 /**
  * The {@link android.support.v7.widget.RecyclerView.Adapter} for the list of employees.
@@ -26,9 +35,12 @@ import mk.pjonceski.empleyeemanager.data.models.Employee;
 public class EmployeeListRecyclerAdapter extends RecyclerView.Adapter<EmployeeListRecyclerAdapter.EmployeeHolder> {
     private List<Employee> employeeList = null;
     private EmployeePreviewContract.OnRowItemClickListener onRowItemClickListener;
+    private Helpers helpers;
 
-    public EmployeeListRecyclerAdapter(EmployeePreviewContract.OnRowItemClickListener onRowItemClickListener) {
+    public EmployeeListRecyclerAdapter(EmployeePreviewContract.OnRowItemClickListener onRowItemClickListener,
+                                       Helpers helpers) {
         this.onRowItemClickListener = onRowItemClickListener;
+        this.helpers = helpers;
     }
 
     @NonNull
@@ -42,6 +54,7 @@ public class EmployeeListRecyclerAdapter extends RecyclerView.Adapter<EmployeeLi
         Employee employee = employeeList.get(position);
         holder.name.setText(employee.getName());
         holder.companyName.setText(employee.getCompanyName());
+        loadAvatarImage(holder, employee);
     }
 
     /**
@@ -71,6 +84,8 @@ public class EmployeeListRecyclerAdapter extends RecyclerView.Adapter<EmployeeLi
         @BindView(R.id.employee_list_item_company_name)
         AppCompatTextView companyName;
 
+        private Target avatarImageTarget;
+
         public EmployeeHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
@@ -85,4 +100,37 @@ public class EmployeeListRecyclerAdapter extends RecyclerView.Adapter<EmployeeLi
 
         }
     }
+
+    private void loadAvatarImage(EmployeeHolder holder, Employee employee) {
+        holder.avatar.setImageBitmap(null);
+        if (holder.avatarImageTarget != null) {
+            Picasso.get().cancelRequest(holder.avatarImageTarget);
+        }
+        /**Check if image exists in image cache dir*/
+        File imageFile = helpers.getFileHelper().getImageFromAvatarsImageCache(String.valueOf(employee.getId()));
+        if (imageFile != null) {
+            Picasso.get().load(imageFile).into(holder.avatar);
+        } else {
+            holder.avatarImageTarget = helpers.getPicassoHelper().createPicassoImageTarget(
+                    String.valueOf(employee.getId()),
+                    new PicassoHelper.ImageLoadingListener() {
+                        @Override
+                        public void onSuccess(Bitmap bitmapImage) {
+                            holder.avatar.setImageBitmap(bitmapImage);
+                        }
+
+                        @Override
+                        public void onError(IOException ex) {
+
+                        }
+
+                        @Override
+                        public void onBitmapFailed(Exception ex, Drawable errorDrawable) {
+
+                        }
+                    });
+            Picasso.get().load(employee.getAvatar()).into(holder.avatarImageTarget);
+        }
+    }
+
 }

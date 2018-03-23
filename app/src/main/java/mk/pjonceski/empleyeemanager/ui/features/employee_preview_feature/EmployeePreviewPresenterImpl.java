@@ -1,6 +1,7 @@
 package mk.pjonceski.empleyeemanager.ui.features.employee_preview_feature;
 
 import android.os.Bundle;
+import android.os.Handler;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -18,28 +19,24 @@ public class EmployeePreviewPresenterImpl
     private Router router;
     private Disposable loadEmployeesListDisposable;
 
+    private Handler mainHandler;
+
     public EmployeePreviewPresenterImpl(EmployeePreviewContract.View view,
                                         EmployeePreviewContract.Interactor interactor,
                                         Router router) {
         super(view, interactor);
         this.router = router;
+        mainHandler = new Handler();
     }
 
-    @Override
-    public void create() {
-
-    }
-
-    @Override
-    public void destroy() {
-
-    }
 
     @Override
     public void subscribe() {
         if (view != null) {
             view.showProgress();
-//            addDisposableToContainer(
+            loadEmployeesList();
+            view.setOfflineIndicator();
+       /*     addDisposableToContainer(
             interactor.getAllEmployees()
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
@@ -53,11 +50,9 @@ public class EmployeePreviewPresenterImpl
                                     view.hideProgress();
                                 }
                             }
-//                    )
-                    );
+                    )
+                    );*/
 
-            loadEmployeesListDisposable = loadEmployeesList();
-            addDisposableToContainer(loadEmployeesListDisposable);
         }
 
     }
@@ -74,22 +69,27 @@ public class EmployeePreviewPresenterImpl
         router.navigateToEmployeeDetailsActivity(employeeData);
     }
 
+    /**
+     * Ensuring that it has Debouncing when clicked.
+     */
     @Override
     public void onButtonRefreshDataClick() {
-        if (loadEmployeesListDisposable != null) {
-            removeDisposableFromContainer(loadEmployeesListDisposable);
-            loadEmployeesListDisposable = loadEmployeesList();
-            addDisposableToContainer(loadEmployeesListDisposable);
-        }
+        mainHandler.removeCallbacks(null);
+
+        mainHandler.postDelayed(() -> {
+            if (view != null) {
+                view.showProgress();
+                loadEmployeesList();
+            }
+        }, 1000);
     }
 
     /**
      * Loads list of employees to screen.
-     *
-     * @return disposable reference.
      */
-    private Disposable loadEmployeesList() {
-        return interactor.getAllEmployeesF()
+    private void loadEmployeesList() {
+        removeDisposableFromContainer(loadEmployeesListDisposable);
+        loadEmployeesListDisposable = interactor.getAllEmployeesF()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(employees -> {
@@ -103,6 +103,6 @@ public class EmployeePreviewPresenterImpl
                                 view.hideProgress();
                             }
                         });
-
+        addDisposableToContainer(loadEmployeesListDisposable);
     }
 }

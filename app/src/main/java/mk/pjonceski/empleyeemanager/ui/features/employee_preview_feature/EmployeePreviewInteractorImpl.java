@@ -29,6 +29,8 @@ public class EmployeePreviewInteractorImpl implements EmployeePreviewContract.In
                 .doOnNext(tasks -> {
                     Log.d("test", tasks.getName());
                 }).toList();
+
+
     }
 
     @Override

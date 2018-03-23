@@ -1,4 +1,4 @@
-package mk.pjonceski.empleyeemanager.utils;
+package mk.pjonceski.empleyeemanager.data.source.local;
 
 import android.content.ContentValues;
 import android.database.Cursor;
@@ -48,7 +48,7 @@ public final class DataMappers {
     public static Employee createFromCursor(@NonNull Cursor cursor) {
 
         Employee employee = null;
-        if (!cursor.isClosed() && cursor.isAfterLast()) {
+        if (!cursor.isClosed() && !cursor.isAfterLast()) {
             employee = new Employee();
             employee.setId(cursor.getInt(cursor.getColumnIndex(EmployeeEntityContract.EmployeeColumns._ID)));
             employee.setName(cursor.getString(cursor.getColumnIndex(EmployeeEntityContract.EmployeeColumns.NAME)));

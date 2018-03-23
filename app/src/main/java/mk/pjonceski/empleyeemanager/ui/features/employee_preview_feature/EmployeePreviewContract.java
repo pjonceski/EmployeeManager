@@ -23,6 +23,10 @@ public interface EmployeePreviewContract {
         void hideProgress();
 
         void populateEmployeesList(List<Employee> employeeList);
+
+        void setOfflineIndicator();
+
+        void setOnlineIndicator();
     }
 
     /**

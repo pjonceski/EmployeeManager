@@ -1,16 +1,13 @@
 package mk.pjonceski.empleyeemanager.data.source.remote.datasource;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.Callable;
 
 import io.reactivex.Flowable;
-import io.reactivex.Single;
 import mk.pjonceski.empleyeemanager.data.models.Employee;
-import mk.pjonceski.empleyeemanager.data.repositories.EmployeeDataSource;
 import mk.pjonceski.empleyeemanager.data.source.remote.retrofit.RetrofitApi;
-import mk.pjonceski.empleyeemanager.utils.Optional;
-import mk.pjonceski.empleyeemanager.utils.PublishersHelper;
+import mk.pjonceski.empleyeemanager.utils.no_instance.PublishersHelper;
 import retrofit2.Call;
 
 /**
@@ -18,13 +15,130 @@ import retrofit2.Call;
  * contract {@link mk.pjonceski.empleyeemanager.data.repositories.EmployeeDataSource}.
  */
 
-public class EmployeeRemoteDataSourceImpl implements EmployeeDataSource {
+public class EmployeeRemoteDataSourceImpl implements EmployeeRemoteDataSource {
     /**
      * With this name the instance for this class is created.
      */
     public static final String INJECTION_NAME = "EmployeeRemoteDataSource";
 
     private RetrofitApi retrofitApi;
+
+    /**
+     * Fake remote data.
+     */
+    private Employee[] fakeEmployeeData = new Employee[]{
+            new Employee("Petar Joncheski",
+                    "Petar Joncheski Bioraphy</br>Works at infobiro",
+                    "Info Biro",
+                    "Senior Android Developer",
+                    "https://www.allbusiness.com/asset/2016/05/app-developer-300x235.jpg"),
+            new Employee("Kliment Joncheski",
+                    "Kliment Joncheski Bioraphy</br>Works at Netcetera",
+                    "Netcetera",
+                    "Senior Android Developer",
+                    "http://cdn.wccftech.com/wp-content/uploads/2016/06/app-developer.jpg"),
+            new Employee("Petar Joncheski",
+                    "Petar Joncheski Bioraphy</br>Works at infobiro",
+                    "Info Biro",
+                    "Senior Android Developer",
+                    "https://www.allbusiness.com/asset/2016/05/app-developer-300x235.jpg"),
+            new Employee("Kliment Joncheski",
+                    "Kliment Joncheski Bioraphy</br>Works at Netcetera",
+                    "Netcetera",
+                    "Senior Android Developer",
+                    "http://cdn.wccftech.com/wp-content/uploads/2016/06/app-developer.jpg"),
+            new Employee("Petar Joncheski",
+                    "Petar Joncheski Bioraphy</br>Works at infobiro",
+                    "Info Biro",
+                    "Senior Android Developer",
+                    "https://www.allbusiness.com/asset/2016/05/app-developer-300x235.jpg"),
+            new Employee("Kliment Joncheski",
+                    "Kliment Joncheski Bioraphy</br>Works at Netcetera",
+                    "Netcetera",
+                    "Senior Android Developer",
+                    "http://cdn.wccftech.com/wp-content/uploads/2016/06/app-developer.jpg"),
+            new Employee("Petar Joncheski",
+                    "Petar Joncheski Bioraphy</br>Works at infobiro",
+                    "Info Biro",
+                    "Senior Android Developer",
+                    "https://www.allbusiness.com/asset/2016/05/app-developer-300x235.jpg"),
+            new Employee("Kliment Joncheski",
+                    "Kliment Joncheski Bioraphy</br>Works at Netcetera",
+                    "Netcetera",
+                    "Senior Android Developer",
+                    "http://cdn.wccftech.com/wp-content/uploads/2016/06/app-developer.jpg"),
+            new Employee("Petar Joncheski",
+                    "Petar Joncheski Bioraphy</br>Works at infobiro",
+                    "Info Biro",
+                    "Senior Android Developer",
+                    "https://www.allbusiness.com/asset/2016/05/app-developer-300x235.jpg"),
+            new Employee("Kliment Joncheski",
+                    "Kliment Joncheski Bioraphy</br>Works at Netcetera",
+                    "Netcetera",
+                    "Senior Android Developer",
+                    "http://cdn.wccftech.com/wp-content/uploads/2016/06/app-developer.jpg"),
+            new Employee("Petar Joncheski",
+                    "Petar Joncheski Bioraphy</br>Works at infobiro",
+                    "Info Biro",
+                    "Senior Android Developer",
+                    "https://www.allbusiness.com/asset/2016/05/app-developer-300x235.jpg"),
+            new Employee("Kliment Joncheski",
+                    "Kliment Joncheski Bioraphy</br>Works at Netcetera",
+                    "Netcetera",
+                    "Senior Android Developer",
+                    "http://cdn.wccftech.com/wp-content/uploads/2016/06/app-developer.jpg"),
+            new Employee("Petar Joncheski",
+                    "Petar Joncheski Bioraphy</br>Works at infobiro",
+                    "Info Biro",
+                    "Senior Android Developer",
+                    "https://www.allbusiness.com/asset/2016/05/app-developer-300x235.jpg"),
+            new Employee("Kliment Joncheski",
+                    "Kliment Joncheski Bioraphy</br>Works at Netcetera",
+                    "Netcetera",
+                    "Senior Android Developer",
+                    "http://cdn.wccftech.com/wp-content/uploads/2016/06/app-developer.jpg"),
+            new Employee("Petar Joncheski",
+                    "Petar Joncheski Bioraphy</br>Works at infobiro",
+                    "Info Biro",
+                    "Senior Android Developer",
+                    "https://www.allbusiness.com/asset/2016/05/app-developer-300x235.jpg"),
+            new Employee("Kliment Joncheski",
+                    "Kliment Joncheski Bioraphy</br>Works at Netcetera",
+                    "Netcetera",
+                    "Senior Android Developer",
+                    "http://cdn.wccftech.com/wp-content/uploads/2016/06/app-developer.jpg"),
+            new Employee("Petar Joncheski",
+                    "Petar Joncheski Bioraphy</br>Works at infobiro",
+                    "Info Biro",
+                    "Senior Android Developer",
+                    "https://www.allbusiness.com/asset/2016/05/app-developer-300x235.jpg"),
+            new Employee("Kliment Joncheski",
+                    "Kliment Joncheski Bioraphy</br>Works at Netcetera",
+                    "Netcetera",
+                    "Senior Android Developer",
+                    "http://cdn.wccftech.com/wp-content/uploads/2016/06/app-developer.jpg"),
+            new Employee("Petar Joncheski",
+                    "Petar Joncheski Bioraphy</br>Works at infobiro",
+                    "Info Biro",
+                    "Senior Android Developer",
+                    "https://www.allbusiness.com/asset/2016/05/app-developer-300x235.jpg"),
+            new Employee("Kliment Joncheski",
+                    "Kliment Joncheski Bioraphy</br>Works at Netcetera",
+                    "Netcetera",
+                    "Senior Android Developer",
+                    "http://cdn.wccftech.com/wp-content/uploads/2016/06/app-developer.jpg"),
+            new Employee("Petar Joncheski",
+                    "Petar Joncheski Bioraphy</br>Works at infobiro",
+                    "Info Biro",
+                    "Senior Android Developer",
+                    "https://www.allbusiness.com/asset/2016/05/app-developer-300x235.jpg"),
+            new Employee("Kliment Joncheski",
+                    "Kliment Joncheski Bioraphy</br>Works at Netcetera",
+                    "Netcetera",
+                    "Senior Android Developer",
+                    "http://cdn.wccftech.com/wp-content/uploads/2016/06/app-developer.jpg")
+
+    };
 
     public EmployeeRemoteDataSourceImpl(RetrofitApi retrofitApi) {
         this.retrofitApi = retrofitApi;
@@ -35,10 +149,17 @@ public class EmployeeRemoteDataSourceImpl implements EmployeeDataSource {
         return PublishersHelper.createFlowable(getAllEmployeesCallable());
     }
 
-    private Callable<List<Employee>> getAllEmployeesCallable() {
+    @Override
+    public Callable<List<Employee>> getAllEmployeesCallable() {
         return () -> {
             Call<List<Employee>> callEmployees = retrofitApi.getAllEmployees();
             return callEmployees.execute().body();
+//            try {
+//                Thread.sleep(2000);
+//            } catch (InterruptedException ex) {
+//            }
+//            return Arrays.asList(fakeEmployeeData);
         };
     }
+
 }

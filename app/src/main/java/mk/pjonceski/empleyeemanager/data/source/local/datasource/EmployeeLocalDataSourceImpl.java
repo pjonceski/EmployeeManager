@@ -14,9 +14,10 @@ import mk.pjonceski.empleyeemanager.data.models.Employee;
 import mk.pjonceski.empleyeemanager.data.source.local.AppDBHelper;
 import mk.pjonceski.empleyeemanager.data.source.local.entities.EmployeeEntityContract;
 import mk.pjonceski.empleyeemanager.utils.AppExecutors;
-import mk.pjonceski.empleyeemanager.utils.DataMappers;
-import mk.pjonceski.empleyeemanager.utils.Optional;
-import mk.pjonceski.empleyeemanager.utils.PublishersHelper;
+import mk.pjonceski.empleyeemanager.data.source.local.DataMappers;
+import mk.pjonceski.empleyeemanager.utils.helpers.Helpers;
+import mk.pjonceski.empleyeemanager.data.models.Optional;
+import mk.pjonceski.empleyeemanager.utils.no_instance.PublishersHelper;
 
 /**
  * This class implements methods that publish data from local storage for the
@@ -26,10 +27,13 @@ import mk.pjonceski.empleyeemanager.utils.PublishersHelper;
 public class EmployeeLocalDataSourceImpl implements EmployeeLocalDataSource {
     private AppDBHelper appDBHelper;
     private AppExecutors appExecutors;
+    private Helpers helpers;
 
-    public EmployeeLocalDataSourceImpl(AppDBHelper appDBHelper, AppExecutors appExecutors) {
+    public EmployeeLocalDataSourceImpl(AppDBHelper appDBHelper, AppExecutors appExecutors, Helpers helpers) {
         this.appDBHelper = appDBHelper;
         this.appExecutors = appExecutors;
+        this.helpers = helpers;
+
     }
 
     @Override
@@ -49,6 +53,7 @@ public class EmployeeLocalDataSourceImpl implements EmployeeLocalDataSource {
         }
         appExecutors.getDiskIO().execute(() -> {
                     SQLiteDatabase db = appDBHelper.getWritableDatabase();
+                    helpers.getFileHelper().clearAvatarsImageCache();
                     db.beginTransaction();
                     db.delete(EmployeeEntityContract.TABLE_EMPLOYEE, null, null);
                     for (int i = 0; i < employeesList.size(); i++) {
@@ -79,14 +84,19 @@ public class EmployeeLocalDataSourceImpl implements EmployeeLocalDataSource {
      *
      * @return callable that return all employes
      */
-    private Callable<List<Employee>> getAllEmployeesCallable() {
+
+    public Callable<List<Employee>> getAllEmployeesCallable() {
         return () -> {
             List<Employee> employeeList = new ArrayList<>();
             Cursor cursor = appDBHelper.getWritableDatabase().query(EmployeeEntityContract.TABLE_EMPLOYEE,
                     null, null, null, null, null, null);
             if (cursor != null && cursor.getCount() >= 0) {
+                Employee employeeToBeAdded;
                 while (cursor.moveToNext()) {
-                    employeeList.add(DataMappers.createFromCursor(cursor));
+                    employeeToBeAdded = DataMappers.createFromCursor(cursor);
+                    if (employeeToBeAdded != null) {
+                        employeeList.add(employeeToBeAdded);
+                    }
                 }
                 cursor.close();
             }

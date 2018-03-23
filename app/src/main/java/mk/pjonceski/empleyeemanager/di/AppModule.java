@@ -14,6 +14,7 @@ import mk.pjonceski.empleyeemanager.data.source.remote.retrofit.RetrofitApiClien
 import mk.pjonceski.empleyeemanager.navigation.Router;
 import mk.pjonceski.empleyeemanager.navigation.RouterImpl;
 import mk.pjonceski.empleyeemanager.utils.AppExecutors;
+import mk.pjonceski.empleyeemanager.utils.helpers.Helpers;
 
 /**
  * Dagger module to provide instances for global application variables .
@@ -36,7 +37,9 @@ public abstract class AppModule {
     @Singleton
     @Provides
     static AppExecutors provideAppExecutors() {
-        return new AppExecutors(Executors.newCachedThreadPool(), AppExecutors.createNetworkThreadExecutor());
+        return new AppExecutors(Executors.newCachedThreadPool(),
+                AppExecutors.createNetworkThreadExecutor(),
+                new AppExecutors.MainThreadExecutor());
     }
 
     @Singleton
@@ -50,4 +53,9 @@ public abstract class AppModule {
                 appCredentials.getBaseAuthPassword());
     }
 
+    @Singleton
+    @Provides
+    static Helpers provideHelpers(App app, AppExecutors appExecutors) {
+        return new Helpers(app, appExecutors);
+    }
 }

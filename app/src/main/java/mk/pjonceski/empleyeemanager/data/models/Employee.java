@@ -87,6 +87,14 @@ public class Employee implements Parcelable {
     public Employee() {
     }
 
+    public Employee(String name, String biography, String companyName, String jobTitle, String avatar) {
+        this.name = name;
+        this.biography = biography;
+        this.companyName = companyName;
+        this.jobTitle = jobTitle;
+        this.avatar = avatar;
+    }
+
     @Override
     public void writeToParcel(Parcel out, int i) {
         out.writeInt(this.id);

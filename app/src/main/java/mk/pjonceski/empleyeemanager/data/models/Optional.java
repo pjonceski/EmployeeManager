@@ -1,4 +1,4 @@
-package mk.pjonceski.empleyeemanager.utils;
+package mk.pjonceski.empleyeemanager.data.models;
 
 import android.support.annotation.Nullable;
 

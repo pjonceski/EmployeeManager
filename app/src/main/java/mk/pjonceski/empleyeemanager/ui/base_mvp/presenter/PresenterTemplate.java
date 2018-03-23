@@ -86,8 +86,8 @@ public class PresenterTemplate<V extends BaseView, I extends BaseInteractor> imp
      *
      * @param disposable the disposable to be deleted.
      */
-    public void removeDisposableFromContainer(@NonNull Disposable disposable) {
-        if (disposableContainer != null) {
+    public void removeDisposableFromContainer(Disposable disposable) {
+        if (disposableContainer != null && disposable != null && !disposable.isDisposed()) {
             disposableContainer.delete(disposable);
         }
     }
