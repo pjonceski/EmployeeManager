@@ -8,7 +8,7 @@ import mk.pjonceski.empleyeemanager.data.models.Employee;
 import mk.pjonceski.empleyeemanager.data.source.local.datasource.EmployeeLocalDataSource;
 import mk.pjonceski.empleyeemanager.data.source.remote.datasource.EmployeeRemoteDataSource;
 import mk.pjonceski.empleyeemanager.utils.helpers.Helpers;
-import mk.pjonceski.empleyeemanager.utils.no_instance.PublishersHelper;
+import mk.pjonceski.empleyeemanager.utils.static_utils.PublishersHelper;
 
 /**
  * Main Employees data provider(local or remote).

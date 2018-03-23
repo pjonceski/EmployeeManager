@@ -20,7 +20,8 @@ public class EmployeePreviewPresenterImpl
     private Router router;
     private Disposable loadEmployeesListDisposable;
 
-    private Handler mainHandler;
+    private Handler loadEmployeesHandler;
+    private Runnable refreshDataRunnable;
     private Helpers helpers;
 
     public EmployeePreviewPresenterImpl(EmployeePreviewContract.View view,
@@ -29,7 +30,13 @@ public class EmployeePreviewPresenterImpl
         super(view, interactor);
         this.router = router;
         this.helpers = helpers;
-        mainHandler = new Handler();
+        loadEmployeesHandler = new Handler();
+        refreshDataRunnable = () -> {
+            if (view != null) {
+                view.showProgress();
+                EmployeePreviewPresenterImpl.this.loadEmployeesList();
+            }
+        };
     }
 
 
@@ -76,14 +83,8 @@ public class EmployeePreviewPresenterImpl
      */
     @Override
     public void onButtonRefreshDataClick() {
-        mainHandler.removeCallbacks(null);
-
-        mainHandler.postDelayed(() -> {
-            if (view != null) {
-                view.showProgress();
-                loadEmployeesList();
-            }
-        }, 1000);
+        loadEmployeesHandler.removeCallbacks(refreshDataRunnable);
+        loadEmployeesHandler.postDelayed(refreshDataRunnable, 500);
     }
 
     /**
@@ -99,7 +100,7 @@ public class EmployeePreviewPresenterImpl
                                 if (helpers.getSharedPrefHelper().isDataOffline()) {
                                     view.setOfflineIndicator();
                                 } else {
-                                    view.setOnlineIndicator();
+                                    view.clearIndicators();
                                 }
                                 view.hideProgress();
                                 view.populateEmployeesList(employees);
@@ -111,5 +112,14 @@ public class EmployeePreviewPresenterImpl
                             }
                         });
         addDisposableToContainer(loadEmployeesListDisposable);
+    }
+
+    @Override
+    public void connectivityChange(boolean hasInternet) {
+        if (hasInternet && helpers.getSharedPrefHelper().isDataOffline()) {
+            if (view != null) {
+                view.setInternetAvailableIndicator();
+            }
+        }
     }
 }

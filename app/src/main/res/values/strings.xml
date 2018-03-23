@@ -1,9 +1,12 @@
 <resources>
     <string name="app_name">EmpleyeeManager</string>
     <string name="employees_preview_title">Employee list</string>
-    <string name="employees_preview_title_offline">Offline employee list</string>
+    <string name="employees_preview_title_offline">Offline Employee list</string>
     <string name="employees_details_title">Employee details</string>
     <string name="company_label">Company</string>
     <string name="name_label">Name</string>
+    <string name="job_title_label">Job Title</string>
     <string name="biography_label">Biography</string>
+    <string name="no_internet">No Internet Available</string>
+    <string name="has_internet">Internet Available</string>
 </resources>

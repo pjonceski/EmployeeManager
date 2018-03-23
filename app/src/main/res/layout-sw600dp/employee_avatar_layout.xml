@@ -3,7 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:paddingTop="@dimen/screen_padding"
+    android:paddingLeft="@dimen/screen_padding"
+    android:paddingRight="@dimen/screen_padding">
+
 
     <RelativeLayout
         android:layout_width="@dimen/details_screen_image_side"
@@ -14,14 +18,13 @@
             android:id="@+id/employee_avatar_image_avatar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:alpha="0.4"
             android:scaleType="fitXY" />
 
         <android.support.v7.widget.AppCompatTextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:alpha="0.4"
-            android:background="@color/colorBlack" />
+            android:background="@color/color_black" />
     </RelativeLayout>
 
 
@@ -56,7 +59,7 @@
         style="@style/Base.TextAppearance.AppCompat.Caption"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/name_label" />
+        android:text="@string/job_title_label" />
 
 
 </LinearLayout>

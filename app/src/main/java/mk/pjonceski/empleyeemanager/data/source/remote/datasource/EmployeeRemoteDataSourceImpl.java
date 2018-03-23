@@ -7,7 +7,7 @@ import java.util.concurrent.Callable;
 import io.reactivex.Flowable;
 import mk.pjonceski.empleyeemanager.data.models.Employee;
 import mk.pjonceski.empleyeemanager.data.source.remote.retrofit.RetrofitApi;
-import mk.pjonceski.empleyeemanager.utils.no_instance.PublishersHelper;
+import mk.pjonceski.empleyeemanager.utils.static_utils.PublishersHelper;
 import retrofit2.Call;
 
 /**
@@ -28,13 +28,59 @@ public class EmployeeRemoteDataSourceImpl implements EmployeeRemoteDataSource {
      */
     private Employee[] fakeEmployeeData = new Employee[]{
             new Employee("Petar Joncheski",
-                    "Petar Joncheski Bioraphy</br>Works at infobiro",
+                    "<div>Petar Joncheski Bioraphy</br>Works at infobirosdfsadfsdfsfsdfsdfsdffsafasdfasdfsfsfs</div>" +
+                            "<div>sfasdfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff</div>" +
+                            "<div>sfasdfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff</div>" +
+                            "<div>sfasdfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff</div>" +
+                            "<div>sfasdfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff</div>" +
+                            "<div>sfasdfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff</div>" +
+                            "<div>sfasdfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff</div>" +
+                            "<div>sfasdfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff</div>" +
+                            "<div>sfasdfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff</div>" +
+                            "<div>sfasdfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff</div>" +
+                            "<div>sfasdfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff</div>" +
+                            "<div>sfasdfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff</div>" +
+                            "<div>sfasdfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff</div>" +
+                            "<div>sfasdfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff</div>" +
+                            "<div>sfasdfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff</div>" +
+                            "<div>sfasdfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff</div>" +
+                            "<div>sfasdfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff</div>" +
+                            "<div>sfasdfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff</div>" +
+                            "<div>sfasdfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff</div>" +
+                            "<div>sfasdfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff</div>" +
+                            "<div>sfasdfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff</div>" +
+                            "<div>sfasdfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff</div>" +
+                            "<div>sfasdfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff</div>" +
+                            "<div>sfasdfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff</div>" +
+                            "<div>sfasdfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff</div>" +
+                            "<div>sfasdfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff</div>" +
+                            "<div>sfasdfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff</div>" +
+                            "<div>sfasdfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff</div>" +
+                            "<div>sfasdfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff</div>" +
+                            "<div>sfasdfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff</div>" +
+                            "<div>sfasdfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff</div>" +
+                            "<div>sfasdfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff</div>" +
+                            "<div>sfasdfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff</div>" +
+                            "<div>sfasdfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff</div>" +
+                            "<div>sfasdfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff</div>" +
+                            "<div>sfasdfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff</div>" +
+                            "<div>sfasdfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff</div>" +
+                            "<div>sfasdfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff</div>" +
+                            "<div>sfasdfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff</div>" +
+                            "<div>sfasdfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff</div>" +
+                            "<div>sfasdfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff</div>" +
+                            "<div>sfasdfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff</div>" +
+                            "<div>sfasdfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff</div>" +
+                            "<div>sfasdfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff</div>" +
+                            "<div>sfasdfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff</div>" +
+                            "<div>sfasdfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff</div>"
+                    ,
                     "Info Biro",
                     "Senior Android Developer",
                     "https://www.allbusiness.com/asset/2016/05/app-developer-300x235.jpg"),
-            new Employee("Kliment Joncheski",
-                    "Kliment Joncheski Bioraphy</br>Works at Netcetera",
-                    "Netcetera",
+            new Employee("Lacar Panchevski",
+                    "Lacar Panchevski Bioraphy</br>Works at Reward Gateway",
+                    "Reward Gateway",
                     "Senior Android Developer",
                     "http://cdn.wccftech.com/wp-content/uploads/2016/06/app-developer.jpg"),
             new Employee("Petar Joncheski",
@@ -42,9 +88,9 @@ public class EmployeeRemoteDataSourceImpl implements EmployeeRemoteDataSource {
                     "Info Biro",
                     "Senior Android Developer",
                     "https://www.allbusiness.com/asset/2016/05/app-developer-300x235.jpg"),
-            new Employee("Kliment Joncheski",
-                    "Kliment Joncheski Bioraphy</br>Works at Netcetera",
-                    "Netcetera",
+            new Employee("Lacar Panchevski",
+                    "Lacar Panchevski Bioraphy</br>Works at Reward Gateway",
+                    "Reward Gateway",
                     "Senior Android Developer",
                     "http://cdn.wccftech.com/wp-content/uploads/2016/06/app-developer.jpg"),
             new Employee("Petar Joncheski",
@@ -52,9 +98,9 @@ public class EmployeeRemoteDataSourceImpl implements EmployeeRemoteDataSource {
                     "Info Biro",
                     "Senior Android Developer",
                     "https://www.allbusiness.com/asset/2016/05/app-developer-300x235.jpg"),
-            new Employee("Kliment Joncheski",
-                    "Kliment Joncheski Bioraphy</br>Works at Netcetera",
-                    "Netcetera",
+            new Employee("Lacar Panchevski",
+                    "Lacar Panchevski Bioraphy</br>Works at Reward Gateway",
+                    "Reward Gateway",
                     "Senior Android Developer",
                     "http://cdn.wccftech.com/wp-content/uploads/2016/06/app-developer.jpg"),
             new Employee("Petar Joncheski",
@@ -62,9 +108,9 @@ public class EmployeeRemoteDataSourceImpl implements EmployeeRemoteDataSource {
                     "Info Biro",
                     "Senior Android Developer",
                     "https://www.allbusiness.com/asset/2016/05/app-developer-300x235.jpg"),
-            new Employee("Kliment Joncheski",
-                    "Kliment Joncheski Bioraphy</br>Works at Netcetera",
-                    "Netcetera",
+            new Employee("Lacar Panchevski",
+                    "Lacar Panchevski Bioraphy</br>Works at Reward Gateway",
+                    "Reward Gateway",
                     "Senior Android Developer",
                     "http://cdn.wccftech.com/wp-content/uploads/2016/06/app-developer.jpg"),
             new Employee("Petar Joncheski",
@@ -72,9 +118,9 @@ public class EmployeeRemoteDataSourceImpl implements EmployeeRemoteDataSource {
                     "Info Biro",
                     "Senior Android Developer",
                     "https://www.allbusiness.com/asset/2016/05/app-developer-300x235.jpg"),
-            new Employee("Kliment Joncheski",
-                    "Kliment Joncheski Bioraphy</br>Works at Netcetera",
-                    "Netcetera",
+            new Employee("Lacar Panchevski",
+                    "Lacar Panchevski Bioraphy</br>Works at Reward Gateway",
+                    "Reward Gateway",
                     "Senior Android Developer",
                     "http://cdn.wccftech.com/wp-content/uploads/2016/06/app-developer.jpg"),
             new Employee("Petar Joncheski",
@@ -82,9 +128,9 @@ public class EmployeeRemoteDataSourceImpl implements EmployeeRemoteDataSource {
                     "Info Biro",
                     "Senior Android Developer",
                     "https://www.allbusiness.com/asset/2016/05/app-developer-300x235.jpg"),
-            new Employee("Kliment Joncheski",
-                    "Kliment Joncheski Bioraphy</br>Works at Netcetera",
-                    "Netcetera",
+            new Employee("Lacar Panchevski",
+                    "Lacar Panchevski Bioraphy</br>Works at Reward Gateway",
+                    "Reward Gateway",
                     "Senior Android Developer",
                     "http://cdn.wccftech.com/wp-content/uploads/2016/06/app-developer.jpg"),
             new Employee("Petar Joncheski",
@@ -92,9 +138,9 @@ public class EmployeeRemoteDataSourceImpl implements EmployeeRemoteDataSource {
                     "Info Biro",
                     "Senior Android Developer",
                     "https://www.allbusiness.com/asset/2016/05/app-developer-300x235.jpg"),
-            new Employee("Kliment Joncheski",
-                    "Kliment Joncheski Bioraphy</br>Works at Netcetera",
-                    "Netcetera",
+            new Employee("Lacar Panchevski",
+                    "Lacar Panchevski Bioraphy</br>Works at Reward Gateway",
+                    "Reward Gateway",
                     "Senior Android Developer",
                     "http://cdn.wccftech.com/wp-content/uploads/2016/06/app-developer.jpg"),
             new Employee("Petar Joncheski",
@@ -102,9 +148,9 @@ public class EmployeeRemoteDataSourceImpl implements EmployeeRemoteDataSource {
                     "Info Biro",
                     "Senior Android Developer",
                     "https://www.allbusiness.com/asset/2016/05/app-developer-300x235.jpg"),
-            new Employee("Kliment Joncheski",
-                    "Kliment Joncheski Bioraphy</br>Works at Netcetera",
-                    "Netcetera",
+            new Employee("Lacar Panchevski",
+                    "Lacar Panchevski Bioraphy</br>Works at Reward Gateway",
+                    "Reward Gateway",
                     "Senior Android Developer",
                     "http://cdn.wccftech.com/wp-content/uploads/2016/06/app-developer.jpg"),
             new Employee("Petar Joncheski",
@@ -112,9 +158,9 @@ public class EmployeeRemoteDataSourceImpl implements EmployeeRemoteDataSource {
                     "Info Biro",
                     "Senior Android Developer",
                     "https://www.allbusiness.com/asset/2016/05/app-developer-300x235.jpg"),
-            new Employee("Kliment Joncheski",
-                    "Kliment Joncheski Bioraphy</br>Works at Netcetera",
-                    "Netcetera",
+            new Employee("Lacar Panchevski",
+                    "Lacar Panchevski Bioraphy</br>Works at Reward Gateway",
+                    "Reward Gateway",
                     "Senior Android Developer",
                     "http://cdn.wccftech.com/wp-content/uploads/2016/06/app-developer.jpg"),
             new Employee("Petar Joncheski",
@@ -122,9 +168,9 @@ public class EmployeeRemoteDataSourceImpl implements EmployeeRemoteDataSource {
                     "Info Biro",
                     "Senior Android Developer",
                     "https://www.allbusiness.com/asset/2016/05/app-developer-300x235.jpg"),
-            new Employee("Kliment Joncheski",
-                    "Kliment Joncheski Bioraphy</br>Works at Netcetera",
-                    "Netcetera",
+            new Employee("Lacar Panchevski",
+                    "Lacar Panchevski Bioraphy</br>Works at Reward Gateway",
+                    "Reward Gateway",
                     "Senior Android Developer",
                     "http://cdn.wccftech.com/wp-content/uploads/2016/06/app-developer.jpg"),
             new Employee("Petar Joncheski",
@@ -132,9 +178,9 @@ public class EmployeeRemoteDataSourceImpl implements EmployeeRemoteDataSource {
                     "Info Biro",
                     "Senior Android Developer",
                     "https://www.allbusiness.com/asset/2016/05/app-developer-300x235.jpg"),
-            new Employee("Kliment Joncheski",
-                    "Kliment Joncheski Bioraphy</br>Works at Netcetera",
-                    "Netcetera",
+            new Employee("Lacar Panchevski",
+                    "Lacar Panchevski Bioraphy</br>Works at Reward Gateway",
+                    "Reward Gateway",
                     "Senior Android Developer",
                     "http://cdn.wccftech.com/wp-content/uploads/2016/06/app-developer.jpg")
 

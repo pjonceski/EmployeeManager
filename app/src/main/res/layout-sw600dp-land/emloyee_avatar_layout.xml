@@ -2,14 +2,15 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/details_screen_image_side"
+    android:layout_height="match_parent"
     android:background="@color/color_primary">
 
     <android.support.v7.widget.AppCompatImageView
         android:id="@+id/employee_avatar_image_avatar"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="fitXY" />
+        android:layout_width="@dimen/details_screen_image_side"
+        android:layout_height="@dimen/details_screen_image_side"
+        android:scaleType="fitXY"
+        android:layout_centerInParent="true"/>
 
     <android.support.v7.widget.AppCompatTextView
         android:layout_width="match_parent"

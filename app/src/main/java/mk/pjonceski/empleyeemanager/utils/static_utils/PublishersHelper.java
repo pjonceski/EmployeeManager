@@ -1,4 +1,4 @@
-package mk.pjonceski.empleyeemanager.utils.no_instance;
+package mk.pjonceski.empleyeemanager.utils.static_utils;
 
 import android.support.annotation.Nullable;
 

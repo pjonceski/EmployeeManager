@@ -17,7 +17,7 @@ import mk.pjonceski.empleyeemanager.utils.AppExecutors;
 import mk.pjonceski.empleyeemanager.data.source.local.DataMappers;
 import mk.pjonceski.empleyeemanager.utils.helpers.Helpers;
 import mk.pjonceski.empleyeemanager.data.models.Optional;
-import mk.pjonceski.empleyeemanager.utils.no_instance.PublishersHelper;
+import mk.pjonceski.empleyeemanager.utils.static_utils.PublishersHelper;
 
 /**
  * This class implements methods that publish data from local storage for the
@@ -105,7 +105,6 @@ public class EmployeeLocalDataSourceImpl implements EmployeeLocalDataSource {
      *
      * @return callable that return employee or null if none
      */
-
     private Callable<Optional<Employee>> getEmployeeWithIdCallable(int id) {
         return () -> {
             Employee employee = null;

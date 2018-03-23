@@ -26,7 +26,9 @@ public interface EmployeePreviewContract {
 
         void setOfflineIndicator();
 
-        void setOnlineIndicator();
+        void clearIndicators();
+
+        void setInternetAvailableIndicator();
     }
 
     /**
@@ -34,7 +36,10 @@ public interface EmployeePreviewContract {
      */
     interface Presenter extends BasePresenter {
         void onEmployeeChosenFromList(Employee employee);
+
         void onButtonRefreshDataClick();
+
+        void connectivityChange(boolean hasInternet);
     }
 
     /**

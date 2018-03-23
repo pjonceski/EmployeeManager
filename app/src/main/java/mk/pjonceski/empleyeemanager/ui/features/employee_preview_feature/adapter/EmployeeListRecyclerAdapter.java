@@ -106,10 +106,10 @@ public class EmployeeListRecyclerAdapter extends RecyclerView.Adapter<EmployeeLi
         if (holder.avatarImageTarget != null) {
             Picasso.get().cancelRequest(holder.avatarImageTarget);
         }
-        /**Check if image exists in image cache dir*/
+        /**Check if image exists in image cache directory.*/
         File imageFile = helpers.getFileHelper().getImageFromAvatarsImageCache(String.valueOf(employee.getId()));
         if (imageFile != null) {
-            Picasso.get().load(imageFile).into(holder.avatar);
+            Picasso.get().load(imageFile).noFade().into(holder.avatar);
         } else {
             holder.avatarImageTarget = helpers.getPicassoHelper().createPicassoImageTarget(
                     String.valueOf(employee.getId()),
@@ -129,7 +129,7 @@ public class EmployeeListRecyclerAdapter extends RecyclerView.Adapter<EmployeeLi
 
                         }
                     });
-            Picasso.get().load(employee.getAvatar()).into(holder.avatarImageTarget);
+            Picasso.get().load(employee.getAvatar()).noFade().into(holder.avatarImageTarget);
         }
     }
 

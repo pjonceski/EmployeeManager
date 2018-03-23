@@ -2,12 +2,16 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="?android:attr/selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true"
+    android:orientation="vertical">
 
     <LinearLayout
+        android:id="@+id/employee_list_item_content_container"
         android:layout_width="match_parent"
         android:layout_height="@dimen/employee_item_height"
-        android:layout_margin="@dimen/screen_padding"
         android:baselineAligned="true"
         android:orientation="horizontal">
 
@@ -16,12 +20,12 @@
             android:layout_height="match_parent"
             android:layout_weight="1">
 
-            <android.support.v7.widget.AppCompatImageView
+            <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/employee_list_item_avatar"
-                android:layout_width="@dimen/employee_item_height"
-                android:layout_height="@dimen/employee_item_height"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_centerInParent="true"
-                android:scaleType="fitXY" />
+                android:src="@mipmap/ic_launcher" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -32,12 +36,14 @@
 
             <android.support.v7.widget.AppCompatTextView
                 android:id="@+id/employee_list_item_name"
-                style="@style/Base.TextAppearance.AppCompat.Headline"
+                style="@style/Base.TextAppearance.AppCompat.Title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
                 android:gravity="start"
+                android:paddingEnd="@dimen/recycler_item_padding"
+                android:paddingStart="@dimen/recycler_item_padding"
                 tools:text="person name long name two rows to be put inside view" />
 
             <android.support.v7.widget.AppCompatTextView
@@ -48,17 +54,33 @@
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentStart="true"
                 android:gravity="end"
-                android:paddingBottom="@dimen/screen_padding"
-                android:textColor="@color/colorGray"
+                android:paddingBottom="5dp"
+                android:paddingEnd="@dimen/recycler_item_padding"
+                android:paddingStart="@dimen/recycler_item_padding"
+                android:textColor="@color/color_dark_gray"
                 tools:text="company name" />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_alignParentBottom="true"
-                android:background="@android:color/darker_gray" />
+
         </RelativeLayout>
 
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/employee_list_item_content_container"
+        android:layout_marginBottom="@dimen/recycler_item_padding">
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="3"
+            android:background="@android:color/darker_gray" />
     </LinearLayout>
 
 

@@ -1,12 +1,19 @@
 package mk.pjonceski.empleyeemanager.ui.features.employee_preview_feature;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 
 import java.util.List;
 
@@ -32,6 +39,8 @@ public class EmployeePreviewActivity extends BaseMVPActivity implements Employee
     @Inject
     Helpers helpers;
 
+    private BroadcastReceiver networkStateChangeReceiver;
+
     @BindView(R.id.employee_preview_employee_list)
     RecyclerView employeeListRecyclerView;
 
@@ -40,6 +49,18 @@ public class EmployeePreviewActivity extends BaseMVPActivity implements Employee
 
     @BindView(R.id.employee_preview_refresh_data_button)
     FloatingActionButton refreshDataButton;
+
+    @BindView(R.id.has_internet_layout)
+    RelativeLayout hasInternetLayout;
+
+    @BindView(R.id.no_internet_layout)
+    RelativeLayout noInternetLayout;
+
+    @BindView(R.id.no_internet_close)
+    AppCompatImageView noInternetCloseImageView;
+
+    @BindView(R.id.has_internet_close)
+    AppCompatImageView hasInternetCloseImageView;
 
     public BasePresenter getBasePresenter() {
         return presenter;
@@ -61,6 +82,7 @@ public class EmployeePreviewActivity extends BaseMVPActivity implements Employee
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setUpScreen();
+        registerNetworkStateChangeReceiver();
     }
 
     private void setUpScreen() {
@@ -74,8 +96,9 @@ public class EmployeePreviewActivity extends BaseMVPActivity implements Employee
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
+    protected void onDestroy() {
+        super.onDestroy();
+        unRegisterNetworkStateChangeReceiver();
     }
 
     @Override
@@ -98,12 +121,18 @@ public class EmployeePreviewActivity extends BaseMVPActivity implements Employee
     @Override
     public void setOfflineIndicator() {
         setTitle(R.string.employees_preview_title_offline);
+        setNetworkLayoutsOffline();
     }
 
     @Override
-    public void setOnlineIndicator() {
+    public void clearIndicators() {
         setTitle(R.string.employees_preview_title);
+        hideNetworkStateLayouts();
+    }
 
+    @Override
+    public void setInternetAvailableIndicator() {
+        setNetworkLayoutsOnline();
     }
 
     @OnClick(R.id.employee_preview_refresh_data_button)
@@ -111,4 +140,45 @@ public class EmployeePreviewActivity extends BaseMVPActivity implements Employee
         presenter.onButtonRefreshDataClick();
     }
 
+    @OnClick(R.id.no_internet_close)
+    void noInternetLayoutCloseClick() {
+        hideNetworkStateLayouts();
+    }
+
+    @OnClick(R.id.has_internet_close)
+    void hasInternetLayoutCloseClick() {
+        hideNetworkStateLayouts();
+    }
+
+    private void registerNetworkStateChangeReceiver() {
+        networkStateChangeReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                presenter.connectivityChange(helpers.getSystemStateHelper().isInternetAvailable());
+            }
+        };
+        IntentFilter networkStateChangeIntentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        this.registerReceiver(networkStateChangeReceiver, networkStateChangeIntentFilter);
+    }
+
+    private void unRegisterNetworkStateChangeReceiver() {
+        if (networkStateChangeReceiver != null) {
+            unregisterReceiver(networkStateChangeReceiver);
+        }
+    }
+
+    private void setNetworkLayoutsOffline() {
+        hasInternetLayout.setVisibility(View.GONE);
+        noInternetLayout.setVisibility(View.VISIBLE);
+    }
+
+    private void setNetworkLayoutsOnline() {
+        hasInternetLayout.setVisibility(View.VISIBLE);
+        noInternetLayout.setVisibility(View.GONE);
+    }
+
+    private void hideNetworkStateLayouts() {
+        hasInternetLayout.setVisibility(View.GONE);
+        noInternetLayout.setVisibility(View.GONE);
+    }
 }
