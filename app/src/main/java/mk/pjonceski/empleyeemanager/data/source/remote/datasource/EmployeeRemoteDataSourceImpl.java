@@ -21,7 +21,7 @@ public class EmployeeRemoteDataSourceImpl implements EmployeeRemoteDataSource {
     /**
      * If set to true data from {@link #fakeEmployeeData} will be used.
      * If set to false data from {@link RetrofitApi#getAllEmployees()} will be used.
-     * Set to true when data remote source is unavailable.
+     * For Testing purposes set this to true when remote data source is unavailable.
      */
     private boolean useFakeData = false;
     /**

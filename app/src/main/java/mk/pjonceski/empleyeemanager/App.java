@@ -2,6 +2,7 @@ package mk.pjonceski.empleyeemanager;
 
 import android.app.Activity;
 import android.app.Application;
+import android.support.annotation.Nullable;
 
 import com.facebook.stetho.Stetho;
 
@@ -18,6 +19,9 @@ import mk.pjonceski.empleyeemanager.di.DaggerAppComponent;
  */
 @SuppressWarnings("unused")
 public class App extends Application implements HasActivityInjector {
+    /**
+     * The current active activity.
+     */
     private Activity currentActivity;
 
     @Inject
@@ -35,6 +39,7 @@ public class App extends Application implements HasActivityInjector {
         Stetho.initializeWithDefaults(this);
     }
 
+    @Nullable
     public Activity getCurrentActivity() {
         return currentActivity;
     }

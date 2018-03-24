@@ -41,8 +41,8 @@ public final class DataMappers {
      * Cursor should have data.
      * Cursor should be closed outside of this method.
      *
-     * @param cursor the cursor from which we get the data
-     * @return the populated object employee
+     * @param cursor the cursor from which we get the data.
+     * @return the populated object employee.
      */
     @Nullable
     public static Employee createFromCursor(@NonNull Cursor cursor) {

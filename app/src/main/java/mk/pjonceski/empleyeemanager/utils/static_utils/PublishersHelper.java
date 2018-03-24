@@ -7,13 +7,12 @@ import io.reactivex.Flowable;
 import io.reactivex.Single;
 
 /**
- * Contains helper methods for creating RxJava publishers:
+ * Contains helper methods for creating RxJava publishers.
  * {@link Flowable},
  * {@link Single}
  */
 public final class PublishersHelper {
     private PublishersHelper() {
-
     }
 
     /**

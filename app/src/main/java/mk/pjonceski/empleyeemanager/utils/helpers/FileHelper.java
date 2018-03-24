@@ -15,7 +15,7 @@ import java.io.IOException;
 @SuppressWarnings("WeakerAccess")
 public final class FileHelper {
     /**
-     * The directory which will server as local cache for avatar images.
+     * The directory with purpose as local cache for avatar images.
      */
     private final static String AVATARS_CACHE_DIRECTORY_NAME = "avatars_directory";
     /**

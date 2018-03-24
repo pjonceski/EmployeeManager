@@ -30,7 +30,7 @@ public class RouterImpl implements Router {
      * If parameter data is null then the intent will contain no extra data.
      *
      * @param data the data to be transferred to the other activity if not null.
-     * @return the created intent
+     * @return the created intent.
      */
     private Intent createIntentFromCurrentActivity(@Nullable Bundle data) {
         Intent intent = new Intent(app.getCurrentActivity(), EmployeeDetailsActivity.class);

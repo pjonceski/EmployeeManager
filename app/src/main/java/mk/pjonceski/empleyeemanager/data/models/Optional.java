@@ -3,7 +3,14 @@ package mk.pjonceski.empleyeemanager.data.models;
 import android.support.annotation.Nullable;
 
 import java.util.NoSuchElementException;
-@SuppressWarnings("unused")
+
+/**
+ * This class is used to wrap variables that may be null.
+ * By calling {@link Optional#isEmpty()} you can check if it is null.
+ *
+ * @param <M> the variable that is wrapped.
+ */
+@SuppressWarnings({"unused","WeakerAccess"})
 public class Optional<M> {
 
     private final M optional;

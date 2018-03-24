@@ -15,7 +15,8 @@ public interface EmployeeRemoteDataSource extends EmployeeDataSource {
     /**
      * Returns all employees from rest api.
      * Throws IO Exception for bad endpoint.
-     * * @return list of employees or null for network failure.
+     *
+     * @return list of employees or null for network failure.
      */
     List<Employee> getAllEmployeesFromRestApi() throws IOException;
 

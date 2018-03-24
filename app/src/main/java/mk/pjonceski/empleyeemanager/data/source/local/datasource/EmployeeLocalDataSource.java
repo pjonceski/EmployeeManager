@@ -17,7 +17,7 @@ public interface EmployeeLocalDataSource extends EmployeeDataSource {
     /**
      * Deletes all persisted Employees and inserts the new ones.
      *
-     * @param employeesList the list of employees
+     * @param employeesList the list of employees.
      */
     void reinsertAll(List<Employee> employeesList);
 
@@ -25,15 +25,15 @@ public interface EmployeeLocalDataSource extends EmployeeDataSource {
      * Return single employee for the provided id.
      * If none is found null is returned.
      *
-     * @param id the id of the imployee
-     * @return Single to emmit the employee
+     * @param id the id of the employee.
+     * @return Single to emmit the employee.
      */
     Single<Optional<Employee>> getEmployeeById(int id);
 
     /**
      * Returns all employees from local database.
      *
-     * @return all the employees
+     * @return all the employees.
      */
     List<Employee> getAllEmployeesFromSqlLite();
 }

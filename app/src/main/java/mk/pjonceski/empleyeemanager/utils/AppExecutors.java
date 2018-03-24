@@ -12,7 +12,7 @@ import java.util.concurrent.Executor;
  */
 public class AppExecutors {
     /**
-     * This executor is used for writing to local storage(sqllite or sharedPreferences).
+     * This executor is used for writing to local storage(sqlLite or sharedPreferences).
      */
     private final Executor diskIO;
     /**

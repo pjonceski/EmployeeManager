@@ -48,6 +48,14 @@ public final class PicassoHelper {
         void onBitmapFailed(Exception ex, Drawable errorDrawable);
     }
 
+    /**
+     * Creates {@link com.squareup.picasso.Target} that is used for downloading images.
+     * Inside the target the received bitmap is persisted to internal storage.
+     *
+     * @param imageName            the name of the image.
+     * @param imageLoadingListener the listener that provides callbacks statuses.
+     * @return the target.
+     */
     public Target createPicassoImageTarget(final String imageName,
                                            final ImageLoadingListener imageLoadingListener) {
         return new Target() {
