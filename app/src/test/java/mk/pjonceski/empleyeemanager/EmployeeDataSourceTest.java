@@ -52,7 +52,10 @@ public class EmployeeDataSourceTest {
         }
 
         employeeDataSource.getAllEmployees()
-                .subscribe(employees -> assertEquals(employees.get(0).getName(), fakeSqlLiteEmployeeData.get(0).getName()));
+                .subscribe(employees -> {
+                    assertEquals(employees.get(0).getName(), fakeSqlLiteEmployeeData.get(0).getName());
+                }, throwable -> {
+                });
     }
 
     @Test
@@ -72,8 +75,10 @@ public class EmployeeDataSourceTest {
         }
 
         employeeDataSource.getAllEmployees()
-                .subscribe(employees ->
-                        assertEquals(employees.get(0).getName(), fakeRemoteEmployeeData.get(0).getName()));
+                .subscribe(employees -> {
+                    assertEquals(employees.get(0).getName(), fakeRemoteEmployeeData.get(0).getName());
+                }, throwable -> {
+                });
     }
 
 
