@@ -8,8 +8,6 @@ import io.reactivex.Single;
 import mk.pjonceski.empleyeemanager.data.models.Employee;
 import mk.pjonceski.empleyeemanager.data.repositories.EmployeeDataSource;
 
-import static java.util.stream.Collectors.toList;
-
 /**
  * Implementation for {@link EmployeePreviewContract.Interactor}
  */

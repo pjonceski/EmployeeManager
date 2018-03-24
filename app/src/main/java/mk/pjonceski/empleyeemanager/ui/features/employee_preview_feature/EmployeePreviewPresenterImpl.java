@@ -19,7 +19,6 @@ public class EmployeePreviewPresenterImpl
         implements EmployeePreviewContract.Presenter {
     private Router router;
     private Disposable loadEmployeesListDisposable;
-
     private Handler loadEmployeesHandler;
     private Runnable refreshDataRunnable;
     private Helpers helpers;
@@ -39,36 +38,16 @@ public class EmployeePreviewPresenterImpl
         };
     }
 
-
     @Override
     public void subscribe() {
         if (view != null) {
             view.showDataLoadingIndicator();
             loadEmployeesList();
-                   /*     addDisposableToContainer(
-            interactor.getAllEmployees()
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(employees -> {
-                                if (view != null) {
-                                    view.hideDataLoadingIndicator();
-                                    view.populateEmployeesList(employees);
-                                }
-                            }, throwable -> {
-                                if (view != null) {
-                                    view.hideDataLoadingIndicator();
-                                }
-                            }
-                    )
-                    );*/
-
         }
-
     }
 
     @Override
     public void unsubscribe() {
-
     }
 
     @Override
@@ -95,28 +74,7 @@ public class EmployeePreviewPresenterImpl
      */
     private void loadEmployeesList() {
         removeDisposableFromContainer(loadEmployeesListDisposable);
-    /*    loadEmployeesListDisposable = interactor.getAllEmployeesF()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(employees -> {
-                            if (view != null) {
-                                if (helpers.getSharedPrefHelper().isDataOffline()) {
-                                    view.setConnectivityIndicatorsOffline();
-                                } else {
-                                    view.clearConnectivityLayoutIndicators();
-                                }
-                                view.hideDataLoadingIndicator();
-                                view.populateEmployeesList(employees);
-                            }
-                        },
-                        throwable -> {
-                            if (view != null) {
-                                view.hideDataLoadingIndicator();
-                            }
-                        });
-        addDisposableToContainer(loadEmployeesListDisposable);*/
-
-        interactor.getAllEmployees()
+        loadEmployeesListDisposable = interactor.getAllEmployees()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(employeesList -> {
@@ -134,8 +92,7 @@ public class EmployeePreviewPresenterImpl
                         view.hideDataLoadingIndicator();
                     }
                 });
-
-
+        addDisposableToContainer(loadEmployeesListDisposable);
     }
 
     @Override

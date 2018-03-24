@@ -22,7 +22,7 @@ import mk.pjonceski.empleyeemanager.ui.base_mvp.presenter.BasePresenter;
 import mk.pjonceski.empleyeemanager.utils.helpers.Helpers;
 
 /**
- * This activity contains all details for one employee.
+ * This activity shows all the details for employee.
  */
 public class EmployeeDetailsActivity extends BaseMVPActivity implements EmployeeDetailsContract.View {
     @Inject
@@ -45,7 +45,6 @@ public class EmployeeDetailsActivity extends BaseMVPActivity implements Employee
 
     @BindView(R.id.employee_details_biography)
     AppCompatTextView biographyTextView;
-
 
     public BasePresenter getBasePresenter() {
         return presenter;
@@ -98,6 +97,5 @@ public class EmployeeDetailsActivity extends BaseMVPActivity implements Employee
         if (imageAvatarFile != null) {
             Picasso.get().load(imageAvatarFile).into(avatarImageView);
         }
-
     }
 }

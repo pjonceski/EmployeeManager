@@ -12,8 +12,8 @@ import mk.pjonceski.empleyeemanager.utils.static_utils.PublishersHelper;
 import retrofit2.Call;
 
 /**
- * This class implements methods that provide data from cloud for the
- * contract {@link mk.pjonceski.empleyeemanager.data.repositories.EmployeeDataSource}.
+ * This class implements methods that provide data from cloud.
+ * It provides data for the contract {@link mk.pjonceski.empleyeemanager.data.repositories.EmployeeDataSource}.
  */
 
 public class EmployeeRemoteDataSourceImpl implements EmployeeRemoteDataSource {
@@ -196,6 +196,11 @@ public class EmployeeRemoteDataSourceImpl implements EmployeeRemoteDataSource {
         return PublishersHelper.createFlowable(getAllEmployeesCallable());
     }
 
+    /**
+     * Creates callable that returns the list of employees.
+     *
+     * @return callable for the provided list.
+     */
     private Callable<List<Employee>> getAllEmployeesCallable() {
         return this::getAllEmployeesFromRestApi;
     }
@@ -207,7 +212,7 @@ public class EmployeeRemoteDataSourceImpl implements EmployeeRemoteDataSource {
             return callEmployees.execute().body();
         } else {
             try {
-                Thread.sleep(2000);
+                Thread.sleep(1500);
             } catch (InterruptedException ex) {
             }
             return Arrays.asList(fakeEmployeeData);

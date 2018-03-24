@@ -9,8 +9,8 @@ import mk.pjonceski.empleyeemanager.data.models.Employee;
 import mk.pjonceski.empleyeemanager.data.source.local.entities.EmployeeEntityContract;
 
 /**
- * Contains methods that help map data.
- * 1.From {@link android.database.Cursor} to model {@link mk.pjonceski.empleyeemanager.data.models} for fetching data.
+ * Contains methods that help map data from one type to another.
+ * 1. From {@link android.database.Cursor} to model {@link mk.pjonceski.empleyeemanager.data.models} for fetching data.
  * 2. From {@link mk.pjonceski.empleyeemanager.data.models} to {@link android.content.ContentValues} for persisting data.
  */
 
@@ -46,7 +46,6 @@ public final class DataMappers {
      */
     @Nullable
     public static Employee createFromCursor(@NonNull Cursor cursor) {
-
         Employee employee = null;
         if (!cursor.isClosed() && !cursor.isAfterLast()) {
             employee = new Employee();

@@ -16,7 +16,7 @@ import mk.pjonceski.empleyeemanager.di.DaggerAppComponent;
  * The main {@link Application class}.
  * Creates the Dagger graph of dependencies.
  */
-
+@SuppressWarnings("unused")
 public class App extends Application implements HasActivityInjector {
     private Activity currentActivity;
 

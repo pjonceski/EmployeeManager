@@ -2,7 +2,6 @@ package mk.pjonceski.empleyeemanager.data.source.remote.datasource;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.concurrent.Callable;
 
 import mk.pjonceski.empleyeemanager.data.models.Employee;
 import mk.pjonceski.empleyeemanager.data.repositories.EmployeeDataSource;

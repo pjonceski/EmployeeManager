@@ -1,7 +1,6 @@
 package mk.pjonceski.empleyeemanager.data.source.local.datasource;
 
 import java.util.List;
-import java.util.concurrent.Callable;
 
 import io.reactivex.Single;
 import mk.pjonceski.empleyeemanager.data.models.Employee;

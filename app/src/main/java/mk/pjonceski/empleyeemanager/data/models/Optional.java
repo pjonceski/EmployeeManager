@@ -3,7 +3,7 @@ package mk.pjonceski.empleyeemanager.data.models;
 import android.support.annotation.Nullable;
 
 import java.util.NoSuchElementException;
-
+@SuppressWarnings("unused")
 public class Optional<M> {
 
     private final M optional;

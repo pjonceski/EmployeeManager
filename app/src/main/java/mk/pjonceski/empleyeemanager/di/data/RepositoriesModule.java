@@ -1,6 +1,5 @@
 package mk.pjonceski.empleyeemanager.di.data;
 
-import javax.inject.Named;
 import javax.inject.Singleton;
 
 import dagger.Module;

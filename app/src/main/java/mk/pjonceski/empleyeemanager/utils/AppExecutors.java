@@ -5,22 +5,22 @@ import android.os.Looper;
 import android.support.annotation.NonNull;
 
 import java.util.concurrent.Executor;
-import java.util.concurrent.Executors;
 
 /**
  * Executors for the application.
  * The interaction with data is divided in different pools.
  */
 public class AppExecutors {
-    public static final int THREAD_COUNT = 10;
-    private final Executor networkIO;
-
+    /**
+     * This executor is used for writing to local storage(sqllite or sharedPreferences).
+     */
     private final Executor diskIO;
+    /**
+     * This executor is used to execute on main thread.
+     */
     private final Executor mainExecutor;
 
-
-    public AppExecutors(Executor networkIO, Executor diskIO, Executor mainExecutor) {
-        this.networkIO = networkIO;
+    public AppExecutors(Executor diskIO, Executor mainExecutor) {
         this.diskIO = diskIO;
         this.mainExecutor = mainExecutor;
     }
@@ -29,19 +29,8 @@ public class AppExecutors {
         return diskIO;
     }
 
-    public Executor getNetworkIO() {
-        return networkIO;
-    }
-
     public Executor getMainExecutor() {
         return mainExecutor;
-    }
-
-    public static Executor createNetworkThreadExecutor() {
-//        return new ThreadPoolExecutor(0, AppExecutors.THREAD_COUNT,
-//                60L, TimeUnit.SECONDS,
-//                new SynchronousQueue<Runnable>());
-        return Executors.newCachedThreadPool();
     }
 
     /**

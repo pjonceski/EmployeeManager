@@ -13,9 +13,9 @@ import io.reactivex.Flowable;
 import io.reactivex.Single;
 import mk.pjonceski.empleyeemanager.data.models.Employee;
 import mk.pjonceski.empleyeemanager.data.source.local.AppDBHelper;
+import mk.pjonceski.empleyeemanager.data.source.local.DataMappers;
 import mk.pjonceski.empleyeemanager.data.source.local.entities.EmployeeEntityContract;
 import mk.pjonceski.empleyeemanager.utils.AppExecutors;
-import mk.pjonceski.empleyeemanager.data.source.local.DataMappers;
 import mk.pjonceski.empleyeemanager.utils.helpers.Helpers;
 import mk.pjonceski.empleyeemanager.data.models.Optional;
 import mk.pjonceski.empleyeemanager.utils.static_utils.PublishersHelper;
@@ -39,11 +39,9 @@ public class EmployeeLocalDataSourceImpl implements EmployeeLocalDataSource {
 
     @Override
     public void insert(Employee employee) {
-        appExecutors.getDiskIO().execute(() -> {
-                    appDBHelper.getWritableDatabase().insert(EmployeeEntityContract.TABLE_EMPLOYEE,
-                            null,
-                            DataMappers.createFromEmployee(employee));
-                }
+        appExecutors.getDiskIO().execute(() -> appDBHelper.getWritableDatabase().insert(EmployeeEntityContract.TABLE_EMPLOYEE,
+                null,
+                DataMappers.createFromEmployee(employee))
         );
     }
 

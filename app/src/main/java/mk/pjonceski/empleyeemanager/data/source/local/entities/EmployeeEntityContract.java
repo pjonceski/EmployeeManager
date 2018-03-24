@@ -27,7 +27,10 @@ public final class EmployeeEntityContract {
         public static final String JOB_TITLE = "job_title";
         public static final String AVATAR = "avatar";
     }
-/**Creates table employee*/
+
+    /**
+     * Returns string representation of script for creating table {@link #TABLE_EMPLOYEE}.
+     */
     public static final String CREATE_TABLE_EMPLOYEE = String.format("CREATE TABLE %s (" +
                     "%s INTEGER PRIMARY KEY , %s TEXT, %s TEXT, %s TEXT, %s TEXT, %s TEXT)",
             TABLE_EMPLOYEE,

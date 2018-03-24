@@ -2,7 +2,6 @@ package mk.pjonceski.empleyeemanager.ui.features.employee_preview_feature;
 
 import java.util.List;
 
-import io.reactivex.Flowable;
 import io.reactivex.Single;
 import mk.pjonceski.empleyeemanager.data.models.Employee;
 import mk.pjonceski.empleyeemanager.ui.base_mvp.BaseInteractor;

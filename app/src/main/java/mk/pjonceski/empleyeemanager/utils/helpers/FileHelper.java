@@ -22,6 +22,7 @@ public final class FileHelper {
      * The avatar image extension.
      */
     private final static String AVATAR_IMAGE_EXTENSION = ".png";
+
     private ContextWrapper contextWrapper;
 
     FileHelper(ContextWrapper contextWrapper) {
@@ -42,9 +43,9 @@ public final class FileHelper {
 
     /**
      * This method returns the file for the image with provided name.
-     * The images are from directory {@link #AVATARS_CACHE_DIRECTORY_NAME}
+     * The images are from directory {@link #AVATARS_CACHE_DIRECTORY_NAME}.
      *
-     * @param imageName the name of the image
+     * @param imageName the name of the image.
      */
     @Nullable
     public File getImageFromAvatarsImageCache(String imageName) {

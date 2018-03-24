@@ -38,7 +38,6 @@ public abstract class AppModule {
     @Provides
     static AppExecutors provideAppExecutors() {
         return new AppExecutors(Executors.newCachedThreadPool(),
-                AppExecutors.createNetworkThreadExecutor(),
                 new AppExecutors.MainThreadExecutor());
     }
 

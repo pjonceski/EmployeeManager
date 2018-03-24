@@ -87,9 +87,7 @@ public class EmployeePreviewActivity extends BaseMVPActivity implements Employee
 
     private void setUpScreen() {
         employeeListRecyclerAdapter = new EmployeeListRecyclerAdapter(
-                employee -> {
-                    presenter.onEmployeeChosenFromList(employee);
-                },
+                employee -> presenter.onEmployeeChosenFromList(employee),
                 helpers);
         employeeListRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         employeeListRecyclerView.setAdapter(employeeListRecyclerAdapter);
@@ -126,7 +124,7 @@ public class EmployeePreviewActivity extends BaseMVPActivity implements Employee
 
     @Override
     public void clearConnectivityLayoutIndicators() {
-        setTitle(R.string.employees_preview_title);
+        setTitle(getScreenTitle());
         hideNetworkStateLayouts();
     }
 

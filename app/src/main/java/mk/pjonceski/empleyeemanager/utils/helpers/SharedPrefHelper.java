@@ -1,12 +1,13 @@
 package mk.pjonceski.empleyeemanager.utils.helpers;
 
+import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
 import mk.pjonceski.empleyeemanager.App;
 
 /**
- * This class contains methods for storing and retriving data from SharedPreferences .
+ * This class contains methods for retrieving and persisting data to SharedPreferences .
  */
 public class SharedPrefHelper {
     /**
@@ -28,7 +29,7 @@ public class SharedPrefHelper {
     }
 
     /**
-     * Writes to shared preferences for key {@link DataSourceType} value {@link DataSourceType#LOCAL}.
+     * Writes to shared preferences for key {@link DataSourceType},stores the value {@link DataSourceType#LOCAL}.
      * Write the data instantly(blocking).
      */
     public void setDataSourceIsFromLocalStorage() {
@@ -36,7 +37,7 @@ public class SharedPrefHelper {
     }
 
     /**
-     * Writes to shared preferences for key {@link DataSourceType} value {@link DataSourceType#REMOTE}.
+     * Writes to shared preferences for key {@link DataSourceType}, stores the value {@link DataSourceType#REMOTE}.
      * Write the data instantly(blocking).
      */
     public void setDataSourceIsFromRemoteStorage() {
@@ -56,8 +57,9 @@ public class SharedPrefHelper {
      * Writes to shared preferences instantly(blocking).
      *
      * @param key   the key for the value.
-     * @param value the value to be writen.
+     * @param value the value to be written.
      */
+    @SuppressLint("ApplySharedPref")
     private void writeToSharedPreferences(String key, int value) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putInt(key, value);
