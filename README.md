@@ -4,8 +4,9 @@ This is sample application for managing employees providing all details about th
 
 ### About Employee Manager ###
 
-Employee Manager is an Android application that provides list of Employees. Also provides detail information about every employee.
-At the first screen all employees are listed. Every item contains employee's avatar, name and company name.
+Employee Manager is an Android application that provides informations about Employees. 
+At the first screen all employees are listed.Every item contains employee's avatar, name and company name. 
+If you click on the employee item you navigate to details screen. The details scren provides detail information about every employee.
 After you get the list of employees from server, the data is cached and you can explore the list of employees and their details offline.
 
 ### How do I get set up? ###
