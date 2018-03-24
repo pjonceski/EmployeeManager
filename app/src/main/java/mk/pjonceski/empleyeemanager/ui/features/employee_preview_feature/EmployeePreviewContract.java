@@ -24,9 +24,9 @@ public interface EmployeePreviewContract {
 
         void populateEmployeesList(List<Employee> employeeList);
 
-        void setOfflineIndicator();
+        void setConnectivityIndicatorsOffline();
 
-        void clearIndicators();
+        void clearConnectivityLayoutIndicators();
 
         void setInternetAvailableIndicator();
     }

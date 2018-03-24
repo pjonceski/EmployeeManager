@@ -8,4 +8,5 @@
     <color name="color_black">#000000</color>
     <color name="color_white">#FFFFFF</color>
     <color name="color_green">#00FF00</color>
+    <color name="color_item_delimiter">#dadada</color>
 </resources>

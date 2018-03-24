@@ -119,13 +119,13 @@ public class EmployeePreviewActivity extends BaseMVPActivity implements Employee
     }
 
     @Override
-    public void setOfflineIndicator() {
+    public void setConnectivityIndicatorsOffline() {
         setTitle(R.string.employees_preview_title_offline);
         setNetworkLayoutsOffline();
     }
 
     @Override
-    public void clearIndicators() {
+    public void clearConnectivityLayoutIndicators() {
         setTitle(R.string.employees_preview_title);
         hideNetworkStateLayouts();
     }

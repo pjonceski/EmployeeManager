@@ -73,6 +73,9 @@ public class EmployeePreviewPresenterImpl
 
     @Override
     public void onEmployeeChosenFromList(Employee employee) {
+        if (view != null) {
+            view.clearConnectivityLayoutIndicators();
+        }
         Bundle employeeData = new Bundle();
         employeeData.putParcelable(Router.BundleKeys.EMPLOYEE, employee);
         router.navigateToEmployeeDetailsActivity(employeeData);
@@ -98,9 +101,9 @@ public class EmployeePreviewPresenterImpl
                 .subscribe(employees -> {
                             if (view != null) {
                                 if (helpers.getSharedPrefHelper().isDataOffline()) {
-                                    view.setOfflineIndicator();
+                                    view.setConnectivityIndicatorsOffline();
                                 } else {
-                                    view.clearIndicators();
+                                    view.clearConnectivityLayoutIndicators();
                                 }
                                 view.hideProgress();
                                 view.populateEmployeesList(employees);
