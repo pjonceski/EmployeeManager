@@ -33,7 +33,7 @@ public class EmployeePreviewPresenterImpl
         loadEmployeesHandler = new Handler();
         refreshDataRunnable = () -> {
             if (view != null) {
-                view.showProgress();
+                view.showDataLoadingIndicator();
                 EmployeePreviewPresenterImpl.this.loadEmployeesList();
             }
         };
@@ -43,7 +43,7 @@ public class EmployeePreviewPresenterImpl
     @Override
     public void subscribe() {
         if (view != null) {
-            view.showProgress();
+            view.showDataLoadingIndicator();
             loadEmployeesList();
                    /*     addDisposableToContainer(
             interactor.getAllEmployees()
@@ -51,12 +51,12 @@ public class EmployeePreviewPresenterImpl
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(employees -> {
                                 if (view != null) {
-                                    view.hideProgress();
+                                    view.hideDataLoadingIndicator();
                                     view.populateEmployeesList(employees);
                                 }
                             }, throwable -> {
                                 if (view != null) {
-                                    view.hideProgress();
+                                    view.hideDataLoadingIndicator();
                                 }
                             }
                     )
@@ -95,7 +95,7 @@ public class EmployeePreviewPresenterImpl
      */
     private void loadEmployeesList() {
         removeDisposableFromContainer(loadEmployeesListDisposable);
-        loadEmployeesListDisposable = interactor.getAllEmployeesF()
+    /*    loadEmployeesListDisposable = interactor.getAllEmployeesF()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(employees -> {
@@ -105,23 +105,44 @@ public class EmployeePreviewPresenterImpl
                                 } else {
                                     view.clearConnectivityLayoutIndicators();
                                 }
-                                view.hideProgress();
+                                view.hideDataLoadingIndicator();
                                 view.populateEmployeesList(employees);
                             }
                         },
                         throwable -> {
                             if (view != null) {
-                                view.hideProgress();
+                                view.hideDataLoadingIndicator();
                             }
                         });
-        addDisposableToContainer(loadEmployeesListDisposable);
+        addDisposableToContainer(loadEmployeesListDisposable);*/
+
+        interactor.getAllEmployees()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(employeesList -> {
+                    if (view != null) {
+                        if (helpers.getSharedPrefHelper().isDataOffline()) {
+                            view.setConnectivityIndicatorsOffline();
+                        } else {
+                            view.clearConnectivityLayoutIndicators();
+                        }
+                        view.hideDataLoadingIndicator();
+                        view.populateEmployeesList(employeesList);
+                    }
+                }, throwable -> {
+                    if (view != null) {
+                        view.hideDataLoadingIndicator();
+                    }
+                });
+
+
     }
 
     @Override
     public void connectivityChange(boolean hasInternet) {
         if (hasInternet && helpers.getSharedPrefHelper().isDataOffline()) {
             if (view != null) {
-                view.setInternetAvailableIndicator();
+                view.setInternetAvailableAgainIndicator();
             }
         }
     }

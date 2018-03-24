@@ -34,7 +34,7 @@ public interface EmployeeLocalDataSource extends EmployeeDataSource {
     /**
      * Returns all employees from local database.
      *
-     * @return callable that return all employes
+     * @return all the employees
      */
-    Callable<List<Employee>> getAllEmployeesCallable();
+    List<Employee> getAllEmployeesFromSqlLite();
 }

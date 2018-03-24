@@ -1,5 +1,6 @@
 package mk.pjonceski.empleyeemanager.data.source.remote.datasource;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.Callable;
@@ -16,13 +17,13 @@ import retrofit2.Call;
  */
 
 public class EmployeeRemoteDataSourceImpl implements EmployeeRemoteDataSource {
-    /**
-     * With this name the instance for this class is created.
-     */
-    public static final String INJECTION_NAME = "EmployeeRemoteDataSource";
-
     private RetrofitApi retrofitApi;
-
+    /**
+     * If set to true data from {@link #fakeEmployeeData} will be used.
+     * If set to false data from {@link RetrofitApi#getAllEmployees()} will be used.
+     * Set to true when data remote source is unavailable.
+     */
+    private boolean useFakeData = false;
     /**
      * Fake remote data.
      */
@@ -195,17 +196,22 @@ public class EmployeeRemoteDataSourceImpl implements EmployeeRemoteDataSource {
         return PublishersHelper.createFlowable(getAllEmployeesCallable());
     }
 
+    private Callable<List<Employee>> getAllEmployeesCallable() {
+        return this::getAllEmployeesFromRestApi;
+    }
+
     @Override
-    public Callable<List<Employee>> getAllEmployeesCallable() {
-        return () -> {
+    public List<Employee> getAllEmployeesFromRestApi() throws IOException {
+        if (!useFakeData) {
             Call<List<Employee>> callEmployees = retrofitApi.getAllEmployees();
             return callEmployees.execute().body();
-//            try {
-//                Thread.sleep(2000);
-//            } catch (InterruptedException ex) {
-//            }
-//            return Arrays.asList(fakeEmployeeData);
-        };
+        } else {
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException ex) {
+            }
+            return Arrays.asList(fakeEmployeeData);
+        }
     }
 
 }

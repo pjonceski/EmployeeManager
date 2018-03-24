@@ -18,27 +18,60 @@ public interface EmployeePreviewContract {
      * Defined all methods for interaction with the view.
      */
     interface View extends BaseView {
-        void showProgress();
+        /**
+         * Show indicator on ui that data is loading.
+         */
+        void showDataLoadingIndicator();
 
-        void hideProgress();
+        /**
+         * Hide indicator that on ui for loading data.
+         */
+        void hideDataLoadingIndicator();
 
+        /**
+         * Set the data employeeList to the adapter.
+         *
+         * @param employeeList the list to be loaded.
+         */
         void populateEmployeesList(List<Employee> employeeList);
 
+        /**
+         * Set status of the screen that no internet is available.
+         */
         void setConnectivityIndicatorsOffline();
 
+        /**
+         * Hides all the connectivity status indicators.
+         */
         void clearConnectivityLayoutIndicators();
 
-        void setInternetAvailableIndicator();
+        /**
+         * Set indicator that internet is available again.
+         */
+        void setInternetAvailableAgainIndicator();
     }
 
     /**
      * Defined all methods for the presenter.
      */
     interface Presenter extends BasePresenter {
+        /**
+         * When employee is chosen(click) from the list of employees.
+         *
+         * @param employee the chosen employee.
+         */
         void onEmployeeChosenFromList(Employee employee);
 
+        /**
+         * When button to refresh data is clicked.
+         */
         void onButtonRefreshDataClick();
 
+        /**
+         * This method is called when internet connectivity is changed.
+         *
+         * @param hasInternet is true if internet is available,false otherwise.
+         */
         void connectivityChange(boolean hasInternet);
     }
 
@@ -46,12 +79,20 @@ public interface EmployeePreviewContract {
      * Defined all methods for the interactor.
      */
     interface Interactor extends BaseInteractor {
+        /**
+         * Emits the list of employees.
+         *
+         * @return observable which emmit the list of employees.
+         */
         Single<List<Employee>> getAllEmployees();
-
-        Flowable<List<Employee>> getAllEmployeesF();
     }
 
     interface OnRowItemClickListener {
+        /**
+         * When item is clicked from the list.
+         *
+         * @param employee employee for the clicked row.
+         */
         void itemClicked(Employee employee);
 
     }

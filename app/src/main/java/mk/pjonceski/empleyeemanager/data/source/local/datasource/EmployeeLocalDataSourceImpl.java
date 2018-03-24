@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
 
+import io.reactivex.BackpressureStrategy;
 import io.reactivex.Flowable;
 import io.reactivex.Single;
 import mk.pjonceski.empleyeemanager.data.models.Employee;
@@ -71,7 +72,10 @@ public class EmployeeLocalDataSourceImpl implements EmployeeLocalDataSource {
 
     @Override
     public Flowable<List<Employee>> getAllEmployees() {
-        return PublishersHelper.createFlowable(getAllEmployeesCallable());
+        return Flowable.create(emitter -> {
+            emitter.onNext(getAllEmployeesFromSqlLite());
+            emitter.onComplete();
+        }, BackpressureStrategy.BUFFER);
     }
 
     @Override
@@ -79,25 +83,22 @@ public class EmployeeLocalDataSourceImpl implements EmployeeLocalDataSource {
         return PublishersHelper.createSingle(getEmployeeWithIdCallable(id));
     }
 
-
     @Override
-    public Callable<List<Employee>> getAllEmployeesCallable() {
-        return () -> {
-            List<Employee> employeeList = new ArrayList<>();
-            Cursor cursor = appDBHelper.getWritableDatabase().query(EmployeeEntityContract.TABLE_EMPLOYEE,
-                    null, null, null, null, null, null);
-            if (cursor != null && cursor.getCount() >= 0) {
-                Employee employeeToBeAdded;
-                while (cursor.moveToNext()) {
-                    employeeToBeAdded = DataMappers.createFromCursor(cursor);
-                    if (employeeToBeAdded != null) {
-                        employeeList.add(employeeToBeAdded);
-                    }
+    public List<Employee> getAllEmployeesFromSqlLite() {
+        List<Employee> employeeList = new ArrayList<>();
+        Cursor cursor = appDBHelper.getWritableDatabase().query(EmployeeEntityContract.TABLE_EMPLOYEE,
+                null, null, null, null, null, null);
+        if (cursor != null && cursor.getCount() >= 0) {
+            Employee employeeToBeAdded;
+            while (cursor.moveToNext()) {
+                employeeToBeAdded = DataMappers.createFromCursor(cursor);
+                if (employeeToBeAdded != null) {
+                    employeeList.add(employeeToBeAdded);
                 }
-                cursor.close();
             }
-            return employeeList;
-        };
+            cursor.close();
+        }
+        return employeeList;
     }
 
     /**

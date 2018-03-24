@@ -1,7 +1,6 @@
 package mk.pjonceski.empleyeemanager.data.repositories;
 
 import java.util.List;
-import java.util.concurrent.Callable;
 
 import io.reactivex.Flowable;
 import mk.pjonceski.empleyeemanager.data.models.Employee;
@@ -11,7 +10,9 @@ import mk.pjonceski.empleyeemanager.data.models.Employee;
  */
 
 public interface EmployeeDataSource {
-
+    /**
+     * Returns all the employees from local or remote cloud.
+     * */
     Flowable<List<Employee>> getAllEmployees();
 
 }

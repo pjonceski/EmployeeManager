@@ -102,13 +102,13 @@ public class EmployeePreviewActivity extends BaseMVPActivity implements Employee
     }
 
     @Override
-    public void showProgress() {
+    public void showDataLoadingIndicator() {
         listLoadingIndicator.setVisibility(View.VISIBLE);
         employeeListRecyclerView.setVisibility(View.GONE);
     }
 
     @Override
-    public void hideProgress() {
+    public void hideDataLoadingIndicator() {
         listLoadingIndicator.setVisibility(View.GONE);
         employeeListRecyclerView.setVisibility(View.VISIBLE);
     }
@@ -131,7 +131,7 @@ public class EmployeePreviewActivity extends BaseMVPActivity implements Employee
     }
 
     @Override
-    public void setInternetAvailableIndicator() {
+    public void setInternetAvailableAgainIndicator() {
         setNetworkLayoutsOnline();
     }
 
