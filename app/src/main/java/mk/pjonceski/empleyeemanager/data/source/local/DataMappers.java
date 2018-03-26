@@ -55,6 +55,7 @@ public final class DataMappers {
             employee.setCompanyName(cursor.getString(cursor.getColumnIndex(EmployeeEntityContract.EmployeeColumns.COMPANY_NAME)));
             employee.setJobTitle(cursor.getString(cursor.getColumnIndex(EmployeeEntityContract.EmployeeColumns.JOB_TITLE)));
             employee.setAvatar(cursor.getString(cursor.getColumnIndex(EmployeeEntityContract.EmployeeColumns.AVATAR)));
+            employee.setAvatarStatus(cursor.getInt(cursor.getColumnIndex(EmployeeEntityContract.EmployeeColumns.AVATAR_STATUS)));
         }
         return employee;
     }

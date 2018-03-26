@@ -1,6 +1,7 @@
 package mk.pjonceski.empleyeemanager.data.source.local.datasource;
 
 import java.util.List;
+import java.util.concurrent.Callable;
 
 import io.reactivex.Single;
 import mk.pjonceski.empleyeemanager.data.models.Employee;
@@ -36,4 +37,37 @@ public interface EmployeeLocalDataSource extends EmployeeDataSource {
      * @return all the employees.
      */
     List<Employee> getAllEmployeesFromSqlLite();
+
+    /**
+     * Returns all employees with avatar status {@link mk.pjonceski.empleyeemanager.data.source.local.entities.EmployeeEntityContract.AvatarStatus#UNSCHEDULED}
+     *
+     * @return the list of unscheduled employees.
+     */
+    List<Employee> getAllUnscheduledEmployeesForDownloadingAvatarImage();
+
+    /**
+     * Updates the {@link mk.pjonceski.empleyeemanager.data.source.local.entities.EmployeeEntityContract.EmployeeColumns#AVATAR_STATUS}
+     * for one employee.
+     * Possible states are {@link mk.pjonceski.empleyeemanager.data.source.local.entities.EmployeeEntityContract.AvatarStatus}.
+     *
+     * @param id           the id of the Employee.
+     * @param avatarStatus the status.
+     */
+    void updateEmployeeAvatarStatus(int id, int avatarStatus);
+
+    /**
+     * Updates the {@link mk.pjonceski.empleyeemanager.data.source.local.entities.EmployeeEntityContract.EmployeeColumns#AVATAR_STATUS}
+     * of all the employees.
+     * Possible states are {@link mk.pjonceski.empleyeemanager.data.source.local.entities.EmployeeEntityContract.AvatarStatus}.
+     *
+     * @param avatarStatus the status.
+     */
+    void updateAllEmployeesAvatarStatus(int avatarStatus);
+
+    /**
+     * Returns one employee for provided id from local database.
+     *
+     * @return callable that return employee or null if none
+     */
+    Callable<Optional<Employee>> getEmployeeByIdCallable(int id);
 }

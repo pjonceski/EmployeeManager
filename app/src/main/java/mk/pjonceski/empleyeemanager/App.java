@@ -2,6 +2,7 @@ package mk.pjonceski.empleyeemanager;
 
 import android.app.Activity;
 import android.app.Application;
+import android.app.Service;
 import android.support.annotation.Nullable;
 
 import com.facebook.stetho.Stetho;
@@ -11,6 +12,7 @@ import javax.inject.Inject;
 import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.HasActivityInjector;
+import dagger.android.HasServiceInjector;
 import mk.pjonceski.empleyeemanager.di.DaggerAppComponent;
 
 /**
@@ -18,7 +20,7 @@ import mk.pjonceski.empleyeemanager.di.DaggerAppComponent;
  * Creates the Dagger graph of dependencies.
  */
 @SuppressWarnings("unused")
-public class App extends Application implements HasActivityInjector {
+public class App extends Application implements HasActivityInjector, HasServiceInjector {
     /**
      * The current active activity.
      */
@@ -27,9 +29,17 @@ public class App extends Application implements HasActivityInjector {
     @Inject
     DispatchingAndroidInjector<Activity> activityDispatchingAndroidInjector;
 
+    @Inject
+    DispatchingAndroidInjector<Service> serviceDispatchingAndroidInjector;
+
     @Override
     public AndroidInjector<Activity> activityInjector() {
         return activityDispatchingAndroidInjector;
+    }
+
+    @Override
+    public AndroidInjector<Service> serviceInjector() {
+        return serviceDispatchingAndroidInjector;
     }
 
     @Override

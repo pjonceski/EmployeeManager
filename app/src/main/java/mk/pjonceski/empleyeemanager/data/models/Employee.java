@@ -31,6 +31,8 @@ public class Employee implements Parcelable {
     @SerializedName("avatar")
     private String avatar;
 
+    private int avatarStatus;
+
     public int getId() {
         return id;
     }
@@ -79,6 +81,14 @@ public class Employee implements Parcelable {
         this.avatar = avatar;
     }
 
+    public int getAvatarStatus() {
+        return avatarStatus;
+    }
+
+    public void setAvatarStatus(int avatarStatus) {
+        this.avatarStatus = avatarStatus;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -103,6 +113,7 @@ public class Employee implements Parcelable {
         out.writeString(this.companyName);
         out.writeString(this.jobTitle);
         out.writeString(this.avatar);
+        out.writeInt(this.avatarStatus);
     }
 
     public Employee(Parcel in) {
@@ -112,6 +123,7 @@ public class Employee implements Parcelable {
         this.companyName = in.readString();
         this.jobTitle = in.readString();
         this.avatar = in.readString();
+        this.avatarStatus = in.readInt();
     }
 
     public final static Parcelable.Creator CREATOR = new Parcelable.Creator<Employee>() {

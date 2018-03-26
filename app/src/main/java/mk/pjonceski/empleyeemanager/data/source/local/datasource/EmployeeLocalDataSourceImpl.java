@@ -1,5 +1,6 @@
 package mk.pjonceski.empleyeemanager.data.source.local.datasource;
 
+import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.Nullable;
@@ -52,7 +53,6 @@ public class EmployeeLocalDataSourceImpl implements EmployeeLocalDataSource {
         }
         appExecutors.getDiskIO().execute(() -> {
                     SQLiteDatabase db = appDBHelper.getWritableDatabase();
-                    helpers.getFileHelper().clearAvatarsImageCache();
                     db.beginTransaction();
                     db.delete(EmployeeEntityContract.TABLE_EMPLOYEE, null, null);
                     for (int i = 0; i < employeesList.size(); i++) {
@@ -64,6 +64,7 @@ public class EmployeeLocalDataSourceImpl implements EmployeeLocalDataSource {
                     }
                     db.setTransactionSuccessful();
                     db.endTransaction();
+                    helpers.getServiceHelper().startDownloadImagesService();
                 }
         );
     }
@@ -78,14 +79,14 @@ public class EmployeeLocalDataSourceImpl implements EmployeeLocalDataSource {
 
     @Override
     public Single<Optional<Employee>> getEmployeeById(int id) {
-        return PublishersHelper.createSingle(getEmployeeWithIdCallable(id));
+        return PublishersHelper.createSingle(getEmployeeByIdCallable(id));
     }
 
     @Override
     public List<Employee> getAllEmployeesFromSqlLite() {
         List<Employee> employeeList = new ArrayList<>();
         Cursor cursor = appDBHelper.getWritableDatabase().query(EmployeeEntityContract.TABLE_EMPLOYEE,
-                null, null, null, null, null, null);
+                null, null, null, null, null, EmployeeEntityContract.EmployeeColumns.NAME);
         if (cursor != null && cursor.getCount() >= 0) {
             Employee employeeToBeAdded;
             while (cursor.moveToNext()) {
@@ -99,12 +100,8 @@ public class EmployeeLocalDataSourceImpl implements EmployeeLocalDataSource {
         return employeeList;
     }
 
-    /**
-     * Returns one employee for provided id from local database.
-     *
-     * @return callable that return employee or null if none
-     */
-    private Callable<Optional<Employee>> getEmployeeWithIdCallable(int id) {
+    @Override
+    public Callable<Optional<Employee>> getEmployeeByIdCallable(int id) {
         return () -> {
             Employee employee = null;
             Cursor cursor = appDBHelper.getWritableDatabase().query(EmployeeEntityContract.TABLE_EMPLOYEE,
@@ -122,4 +119,56 @@ public class EmployeeLocalDataSourceImpl implements EmployeeLocalDataSource {
         };
     }
 
+    @Override
+    public List<Employee> getAllUnscheduledEmployeesForDownloadingAvatarImage() {
+        List<Employee> unscheduledEmployees = new ArrayList<>();
+        Employee employee;
+        Cursor cursor;
+        SQLiteDatabase db = appDBHelper.getReadableDatabase();
+
+        cursor = db.query(EmployeeEntityContract.TABLE_EMPLOYEE,
+                null,
+                EmployeeEntityContract.EmployeeColumns.AVATAR_STATUS + " = ?",
+                new String[]{String.valueOf(EmployeeEntityContract.AvatarStatus.UNSCHEDULED)},
+                null,
+                null,
+                EmployeeEntityContract.EmployeeColumns.NAME);
+        if (cursor != null) {
+            while (cursor.moveToNext()) {
+                employee = DataMappers.createFromCursor(cursor);
+                unscheduledEmployees.add(employee);
+            }
+        }
+        if (cursor != null) {
+            cursor.close();
+        }
+        return unscheduledEmployees;
+    }
+
+    @Override
+    public void updateEmployeeAvatarStatus(int id, int avatarStatus) {
+        appExecutors.getDiskIO().execute(() -> {
+            SQLiteDatabase db = appDBHelper.getWritableDatabase();
+            ContentValues contentValues = new ContentValues();
+            contentValues.put(EmployeeEntityContract.EmployeeColumns.AVATAR_STATUS, avatarStatus);
+            db.update(EmployeeEntityContract.TABLE_EMPLOYEE,
+                    contentValues,
+                    EmployeeEntityContract.EmployeeColumns._ID + "= ?",
+                    new String[]{String.valueOf(id)}
+            );
+        });
+
+    }
+
+    @Override
+    public void updateAllEmployeesAvatarStatus(int avatarStatus) {
+        appExecutors.getDiskIO().execute(() -> {
+            SQLiteDatabase db = appDBHelper.getWritableDatabase();
+            ContentValues contentValues = new ContentValues();
+            contentValues.put(EmployeeEntityContract.EmployeeColumns.AVATAR_STATUS, avatarStatus);
+            db.update(EmployeeEntityContract.TABLE_EMPLOYEE,
+                    contentValues, null, null);
+        });
+
+    }
 }

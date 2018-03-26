@@ -13,12 +13,14 @@ public class Helpers {
     private final PicassoHelper picassoHelper;
     private final SystemStateHelper systemStateHelper;
     private final SharedPrefHelper sharedPrefHelper;
+    private final ServiceHelper serviceHelper;
 
     public Helpers(App app, AppExecutors appExecutors) {
         this.fileHelper = new FileHelper(new ContextWrapper(app));
         this.picassoHelper = new PicassoHelper(appExecutors, fileHelper);
         this.systemStateHelper = new SystemStateHelper(app);
         this.sharedPrefHelper = new SharedPrefHelper(app);
+        this.serviceHelper = new ServiceHelper(app);
     }
 
     public FileHelper getFileHelper() {
@@ -35,5 +37,9 @@ public class Helpers {
 
     public SharedPrefHelper getSharedPrefHelper() {
         return sharedPrefHelper;
+    }
+
+    public ServiceHelper getServiceHelper() {
+        return serviceHelper;
     }
 }
