@@ -110,7 +110,7 @@ public class EmployeeLocalDataSourceImpl implements EmployeeLocalDataSource {
                     new String[]{String.valueOf(id)},
                     null, null, null);
             if (cursor != null && cursor.getCount() >= 0) {
-                while (cursor.moveToFirst()) {
+                if (cursor.moveToFirst()) {
                     employee = DataMappers.createFromCursor(cursor);
                 }
                 cursor.close();

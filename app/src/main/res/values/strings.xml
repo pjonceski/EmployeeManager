@@ -9,4 +9,5 @@
     <string name="biography_label">Biography</string>
     <string name="no_internet">No Internet Available</string>
     <string name="has_internet">Internet Available</string>
+    <string name="downloading_images">Downloading Images</string>
 </resources>

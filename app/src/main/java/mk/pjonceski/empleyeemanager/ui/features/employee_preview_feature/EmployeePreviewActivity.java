@@ -23,6 +23,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import mk.pjonceski.empleyeemanager.R;
 import mk.pjonceski.empleyeemanager.data.models.Employee;
+import mk.pjonceski.empleyeemanager.data.source.local.datasource.EmployeeLocalDataSource;
 import mk.pjonceski.empleyeemanager.ui.base_mvp.BaseMVPActivity;
 import mk.pjonceski.empleyeemanager.ui.base_mvp.presenter.BasePresenter;
 import mk.pjonceski.empleyeemanager.ui.features.employee_preview_feature.adapter.EmployeeListRecyclerAdapter;
@@ -38,6 +39,8 @@ public class EmployeePreviewActivity extends BaseMVPActivity implements Employee
     EmployeePreviewContract.Presenter presenter;
     @Inject
     Helpers helpers;
+    @Inject
+    EmployeeLocalDataSource employeeLocalDataSource;
 
     private BroadcastReceiver networkStateChangeReceiver;
 
@@ -88,7 +91,7 @@ public class EmployeePreviewActivity extends BaseMVPActivity implements Employee
     private void setUpScreen() {
         employeeListRecyclerAdapter = new EmployeeListRecyclerAdapter(
                 employee -> presenter.onEmployeeChosenFromList(employee),
-                helpers);
+                helpers, employeeLocalDataSource);
         employeeListRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         employeeListRecyclerView.setAdapter(employeeListRecyclerAdapter);
     }

@@ -22,6 +22,10 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 
 public final class RetrofitApiClient {
+    public final static int CONNECT_TIMEOUT_SECONDS = 10;
+    public final static int WRITE_TIMEOUT_SECONDS = 10;
+    public final static int READ_TIMEOUT_SECONDS = 30;
+
     /**
      * Creating the retrofit api client.
      * It has basic authorization if username and password are provided.
@@ -31,7 +35,9 @@ public final class RetrofitApiClient {
      * @param password the password for authorisation.
      * @return returns the RetroFit client.
      */
-    public static RetrofitApi createClient(@NonNull String baseUrl, @Nullable String username, @Nullable String password) {
+    public static RetrofitApi createClient(@NonNull String baseUrl,
+                                           @Nullable String username,
+                                           @Nullable String password) {
         Gson gson = new GsonBuilder()
                 .setLenient()
                 .create();
@@ -59,9 +65,9 @@ public final class RetrofitApiClient {
                             .build();
                     return chain.proceed(request);
                 })
-                .connectTimeout(10, TimeUnit.SECONDS)
-                .writeTimeout(10, TimeUnit.SECONDS)
-                .readTimeout(30, TimeUnit.SECONDS)
+                .connectTimeout(CONNECT_TIMEOUT_SECONDS, TimeUnit.SECONDS)
+                .writeTimeout(WRITE_TIMEOUT_SECONDS, TimeUnit.SECONDS)
+                .readTimeout(READ_TIMEOUT_SECONDS, TimeUnit.SECONDS)
                 .build();
     }
 
