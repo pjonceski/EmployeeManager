@@ -8,6 +8,8 @@ Employee Manager is an Android application that provides informations about Empl
 At the first screen all employees are listed.Every item contains employee's avatar, name and company name. 
 If you click on the employee item you navigate to details screen. The details screen provides detail information about every employee.
 After you get the list of employees from server, the data is cached and you can explore the list of employees and their details offline.
+Images are downloaded while scrolling through the list of employees. The images that are not shown on the screen continue to ne download in background.
+If the app is not active the downloading of the missing images continues and will be retried later if internet connection fails at some point.
 
 ### How do I get set up? ###
 
