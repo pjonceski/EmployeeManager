@@ -97,9 +97,13 @@ public class EmployeePreviewPresenterImpl
 
     @Override
     public void connectivityChange(boolean hasInternet) {
-        if (hasInternet && helpers.getSharedPrefHelper().isDataOffline()) {
-            if (view != null) {
-                view.setInternetAvailableAgainIndicator();
+        if (view != null) {
+            if (hasInternet) {
+                if (helpers.getSharedPrefHelper().isDataOffline()) {
+                    view.setInternetAvailableAgainIndicator();
+                }
+            } else {
+                view.setConnectivityIndicatorsOffline();
             }
         }
     }

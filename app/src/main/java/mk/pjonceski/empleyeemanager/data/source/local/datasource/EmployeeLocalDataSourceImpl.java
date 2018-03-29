@@ -17,8 +17,8 @@ import mk.pjonceski.empleyeemanager.data.source.local.AppDBHelper;
 import mk.pjonceski.empleyeemanager.data.source.local.DataMappers;
 import mk.pjonceski.empleyeemanager.data.source.local.entities.EmployeeEntityContract;
 import mk.pjonceski.empleyeemanager.utils.AppExecutors;
-import mk.pjonceski.empleyeemanager.utils.helpers.Helpers;
 import mk.pjonceski.empleyeemanager.data.models.Optional;
+import mk.pjonceski.empleyeemanager.utils.helpers.ServiceHelper;
 import mk.pjonceski.empleyeemanager.utils.static_utils.PublishersHelper;
 
 /**
@@ -29,12 +29,12 @@ import mk.pjonceski.empleyeemanager.utils.static_utils.PublishersHelper;
 public class EmployeeLocalDataSourceImpl implements EmployeeLocalDataSource {
     private AppDBHelper appDBHelper;
     private AppExecutors appExecutors;
-    private Helpers helpers;
+    private ServiceHelper serviceHelper;
 
-    public EmployeeLocalDataSourceImpl(AppDBHelper appDBHelper, AppExecutors appExecutors, Helpers helpers) {
+    public EmployeeLocalDataSourceImpl(AppDBHelper appDBHelper, AppExecutors appExecutors, ServiceHelper serviceHelper) {
         this.appDBHelper = appDBHelper;
         this.appExecutors = appExecutors;
-        this.helpers = helpers;
+        this.serviceHelper = serviceHelper;
 
     }
 
@@ -64,7 +64,7 @@ public class EmployeeLocalDataSourceImpl implements EmployeeLocalDataSource {
                     }
                     db.setTransactionSuccessful();
                     db.endTransaction();
-                    helpers.getServiceHelper().startDownloadImagesService();
+                    serviceHelper.startDownloadImagesJob();
                 }
         );
     }

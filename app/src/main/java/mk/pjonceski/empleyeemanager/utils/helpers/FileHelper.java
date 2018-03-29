@@ -9,6 +9,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import mk.pjonceski.empleyeemanager.App;
+
 /**
  * Handles writing and retrieving files from internal storage.
  */
@@ -25,8 +27,8 @@ public final class FileHelper {
 
     private ContextWrapper contextWrapper;
 
-    FileHelper(ContextWrapper contextWrapper) {
-        this.contextWrapper = contextWrapper;
+    public FileHelper(App app) {
+        this.contextWrapper = new ContextWrapper(app);
     }
 
     /**
@@ -45,12 +47,12 @@ public final class FileHelper {
      * This method returns the file for the image with provided name.
      * The images are from directory {@link #AVATARS_CACHE_DIRECTORY_NAME}.
      *
-     * @param imageName the name of the image.
+     * @param employeeId the id of the employee.
      */
     @Nullable
-    public File getImageFromAvatarsImageCache(String imageName) {
+    public File getImageFromAvatarsImageCache(int employeeId) {
         File directory = contextWrapper.getDir(AVATARS_CACHE_DIRECTORY_NAME, Context.MODE_PRIVATE);
-        File myImageFile = new File(directory, imageName + AVATAR_IMAGE_EXTENSION);
+        File myImageFile = new File(directory, String.valueOf(employeeId) + AVATAR_IMAGE_EXTENSION);
         return myImageFile.exists() ? myImageFile : null;
     }
 
@@ -60,12 +62,12 @@ public final class FileHelper {
      * avatar images for employees.
      *
      * @param imageBitmap the bitmap to be saved.
-     * @param imageName   the image will be saved with this image.
+     * @param id          the image will be saved with this employee id.
      * @throws IOException the exception that happened during persisting file.
      */
-    public void saveImageIntoAvatarImageCache(Bitmap imageBitmap, String imageName) throws IOException {
+    public void saveBitmapIntoAvatarImageCache(Bitmap imageBitmap, int id) throws IOException {
         final File directory = contextWrapper.getDir(AVATARS_CACHE_DIRECTORY_NAME, Context.MODE_PRIVATE);
-        final File myImageFile = new File(directory, imageName + AVATAR_IMAGE_EXTENSION); // Create image file
+        final File myImageFile = new File(directory, String.valueOf(id) + AVATAR_IMAGE_EXTENSION); // Create image file
         FileOutputStream fos = null;
         try {
             fos = new FileOutputStream(myImageFile);

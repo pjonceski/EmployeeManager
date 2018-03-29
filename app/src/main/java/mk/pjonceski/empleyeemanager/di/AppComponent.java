@@ -19,6 +19,7 @@ import mk.pjonceski.empleyeemanager.di.data.source.RemoteDataSourceModule;
 @Component(modules = {AndroidInjectionModule.class,
         AppModule.class,
         ActivityBindingsModule.class,
+        HelpersBindingModule.class,
         ServiceBindingsModule.class,
         RepositoriesModule.class,
         LocalDataSourceModule.class,

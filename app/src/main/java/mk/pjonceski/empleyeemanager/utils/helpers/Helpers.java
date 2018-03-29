@@ -1,10 +1,4 @@
 package mk.pjonceski.empleyeemanager.utils.helpers;
-
-import android.content.ContextWrapper;
-
-import mk.pjonceski.empleyeemanager.App;
-import mk.pjonceski.empleyeemanager.utils.AppExecutors;
-
 /**
  * This class provides instances of all helper classes.
  */
@@ -15,12 +9,16 @@ public class Helpers {
     private final SharedPrefHelper sharedPrefHelper;
     private final ServiceHelper serviceHelper;
 
-    public Helpers(App app, AppExecutors appExecutors) {
-        this.fileHelper = new FileHelper(new ContextWrapper(app));
-        this.picassoHelper = new PicassoHelper(appExecutors, fileHelper);
-        this.systemStateHelper = new SystemStateHelper(app);
-        this.sharedPrefHelper = new SharedPrefHelper(app);
-        this.serviceHelper = new ServiceHelper(app);
+    public Helpers(FileHelper fileHelper,
+                   PicassoHelper picassoHelper,
+                   SystemStateHelper systemStateHelper,
+                   SharedPrefHelper sharedPrefHelper,
+                   ServiceHelper serviceHelper) {
+        this.fileHelper = fileHelper;
+        this.picassoHelper = picassoHelper;
+        this.systemStateHelper = systemStateHelper;
+        this.sharedPrefHelper = sharedPrefHelper;
+        this.serviceHelper = serviceHelper;
     }
 
     public FileHelper getFileHelper() {

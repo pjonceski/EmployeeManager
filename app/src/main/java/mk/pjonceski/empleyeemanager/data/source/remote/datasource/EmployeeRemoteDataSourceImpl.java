@@ -24,7 +24,7 @@ public class EmployeeRemoteDataSourceImpl implements EmployeeRemoteDataSource {
      * If set to false data from {@link RetrofitApi#getAllEmployees()} will be used.
      * For Testing purposes set this to true when remote data source is unavailable.
      */
-    private boolean useFakeData = true;
+    private boolean useFakeData = false;
     /**
      * Fake remote data.
      */
@@ -137,6 +137,7 @@ public class EmployeeRemoteDataSourceImpl implements EmployeeRemoteDataSource {
             try {
                 Thread.sleep(1500);
             } catch (InterruptedException ex) {
+                ex.printStackTrace();
             }
             return getFakeEmployeeData();
         }

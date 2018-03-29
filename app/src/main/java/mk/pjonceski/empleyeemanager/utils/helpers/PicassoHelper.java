@@ -8,6 +8,8 @@ import com.squareup.picasso.Target;
 
 import java.io.IOException;
 
+import mk.pjonceski.empleyeemanager.data.source.local.datasource.EmployeeLocalDataSource;
+import mk.pjonceski.empleyeemanager.data.source.local.entities.EmployeeEntityContract;
 import mk.pjonceski.empleyeemanager.utils.AppExecutors;
 
 /**
@@ -18,10 +20,12 @@ public final class PicassoHelper {
 
     private AppExecutors appExecutors;
     private FileHelper fileHelper;
+    private EmployeeLocalDataSource employeeLocalDataSource;
 
-    PicassoHelper(AppExecutors appExecutors, FileHelper fileHelper) {
+    public PicassoHelper(AppExecutors appExecutors, FileHelper fileHelper, EmployeeLocalDataSource employeeLocalDataSource) {
         this.appExecutors = appExecutors;
         this.fileHelper = fileHelper;
+        this.employeeLocalDataSource = employeeLocalDataSource;
     }
 
     public interface ImageLoadingListener {
@@ -33,7 +37,7 @@ public final class PicassoHelper {
         void onSuccess(Bitmap bitmapImage);
 
         /**
-         * If exception is thrown.
+         * If exception is thrown while saving image to local storage.
          *
          * @param ex the exception.
          */
@@ -52,42 +56,34 @@ public final class PicassoHelper {
      * Creates {@link com.squareup.picasso.Target} that is used for downloading images.
      * Inside the target the received bitmap is persisted to internal storage.
      *
-     * @param imageName            the name of the image.
+     * @param employeeID           the id of the employee.
+     * @param fromFile             true if the loading is from file, false otherwise.
      * @param imageLoadingListener the listener that provides callbacks statuses.
      * @return the target.
      */
-    public Target createPicassoImageTarget(final String imageName,
-                                           final ImageLoadingListener imageLoadingListener) {
+    public Target createPicassoImageTargetForEmployee(final int employeeID,
+                                                      boolean fromFile,
+                                                      final ImageLoadingListener imageLoadingListener) {
         return new Target() {
             @Override
             public void onBitmapLoaded(final Bitmap bitmap, Picasso.LoadedFrom from) {
-                appExecutors.getDiskIO().execute(() -> {
-                    boolean success = true;
-                    try {
-                        fileHelper.saveImageIntoAvatarImageCache(bitmap, imageName);
-                    } catch (IOException e) {
-
-                        if (!Thread.interrupted()) {
-                            if (imageLoadingListener != null) {
-                                imageLoadingListener.onError(e);
-                            }
+                if (!fromFile) {
+                    appExecutors.getDiskIO().execute(() -> {
+                        try {
+                            fileHelper.saveBitmapIntoAvatarImageCache(bitmap, employeeID);
+                        } catch (IOException e) {
+                            appExecutors.getMainExecutor().execute(() -> imageLoadingListener.onError(e));
                         }
-                        success = false;
-                    } finally {
-                        if (!Thread.interrupted()) {
-                            final boolean successLocal = success;
-                            appExecutors.getMainExecutor().execute(() -> {
-                                if (successLocal && imageLoadingListener != null) {
-                                    imageLoadingListener.onSuccess(bitmap);
-                                }
-                            });
-                        }
-                    }
-                });
+                    });
+                }
+                if (imageLoadingListener != null) {
+                    imageLoadingListener.onSuccess(bitmap);
+                }
             }
 
             @Override
             public void onBitmapFailed(Exception e, Drawable errorDrawable) {
+                employeeLocalDataSource.updateEmployeeAvatarStatus(employeeID, EmployeeEntityContract.AvatarStatus.UNSCHEDULED);
                 if (imageLoadingListener != null) {
                     imageLoadingListener.onBitmapFailed(e, errorDrawable);
                 }
@@ -95,6 +91,7 @@ public final class PicassoHelper {
 
             @Override
             public void onPrepareLoad(Drawable placeHolderDrawable) {
+                employeeLocalDataSource.updateEmployeeAvatarStatus(employeeID, EmployeeEntityContract.AvatarStatus.SCHEDULED);
             }
         };
     }

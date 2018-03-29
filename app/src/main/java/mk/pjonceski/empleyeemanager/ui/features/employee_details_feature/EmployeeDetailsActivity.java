@@ -93,7 +93,7 @@ public class EmployeeDetailsActivity extends BaseMVPActivity implements Employee
         } else {
             this.biographyTextView.setText(Html.fromHtml(employee.getBiography()));
         }
-        File imageAvatarFile = helpers.getFileHelper().getImageFromAvatarsImageCache(String.valueOf(employee.getId()));
+        File imageAvatarFile = helpers.getFileHelper().getImageFromAvatarsImageCache(employee.getId());
         if (imageAvatarFile != null) {
             Picasso.get().load(imageAvatarFile).into(avatarImageView);
         }

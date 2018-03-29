@@ -6,7 +6,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,16 +19,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.inject.Inject;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import mk.pjonceski.empleyeemanager.R;
 import mk.pjonceski.empleyeemanager.data.models.Employee;
-import mk.pjonceski.empleyeemanager.data.source.local.datasource.EmployeeLocalDataSource;
-import mk.pjonceski.empleyeemanager.data.source.local.entities.EmployeeEntityContract;
-import mk.pjonceski.empleyeemanager.di.data.source.LocalDataSourceModule;
 import mk.pjonceski.empleyeemanager.ui.features.employee_preview_feature.EmployeePreviewContract;
 import mk.pjonceski.empleyeemanager.utils.helpers.Helpers;
 import mk.pjonceski.empleyeemanager.utils.helpers.PicassoHelper;
@@ -42,11 +36,9 @@ public class EmployeeListRecyclerAdapter extends RecyclerView.Adapter<EmployeeLi
     private List<Employee> employeeList = null;
     private EmployeePreviewContract.OnRowItemClickListener onRowItemClickListener;
     private Helpers helpers;
-    EmployeeLocalDataSource employeeLocalDataSource;
 
     public EmployeeListRecyclerAdapter(EmployeePreviewContract.OnRowItemClickListener onRowItemClickListener,
-                                       Helpers helpers, EmployeeLocalDataSource employeeLocalDataSource) {
-        this.employeeLocalDataSource = employeeLocalDataSource;
+                                       Helpers helpers) {
         this.onRowItemClickListener = onRowItemClickListener;
         this.helpers = helpers;
     }
@@ -114,36 +106,54 @@ public class EmployeeListRecyclerAdapter extends RecyclerView.Adapter<EmployeeLi
         if (holder.avatarImageTarget != null) {
             Picasso.get().cancelRequest(holder.avatarImageTarget);
         }
-        /**Check if image exists in image cache directory.*/
-        File imageFile = helpers.getFileHelper().getImageFromAvatarsImageCache(String.valueOf(employee.getId()));
-        if (imageFile != null) {
-            Picasso.get().load(imageFile).noFade().into(holder.avatar);
-            Log.d(EmployeeListRecyclerAdapter.class.getSimpleName(), "Image exists");
+        File file = helpers.getFileHelper().getImageFromAvatarsImageCache(employee.getId());
+        if (file != null) {
+            loadImageFromInternalStorage(file, holder, employee);
         } else {
-            holder.avatarImageTarget = helpers.getPicassoHelper().createPicassoImageTarget(
-                    String.valueOf(employee.getId()),
-                    new PicassoHelper.ImageLoadingListener() {
-                        @Override
-                        public void onSuccess(Bitmap bitmapImage) {
-                            Log.d(EmployeeListRecyclerAdapter.class.getSimpleName(), "Image downloaded using picasso");
-                            holder.avatar.setImageBitmap(bitmapImage);
-                        }
-
-                        @Override
-                        public void onError(IOException ex) {
-                            employeeLocalDataSource.updateEmployeeAvatarStatus(employee.getId(), EmployeeEntityContract.AvatarStatus.UNSCHEDULED);
-                        }
-
-                        @Override
-                        public void onBitmapFailed(Exception ex, Drawable errorDrawable) {
-                            employeeLocalDataSource.updateEmployeeAvatarStatus(employee.getId(), EmployeeEntityContract.AvatarStatus.UNSCHEDULED);
-                        }
-
-                    });
-            Log.d(EmployeeListRecyclerAdapter.class.getSimpleName(), "Image not exists, Update image scheduled");
-            employeeLocalDataSource.updateEmployeeAvatarStatus(employee.getId(), EmployeeEntityContract.AvatarStatus.SCHEDULED);
-            Picasso.get().load(employee.getAvatar()).noFade().into(holder.avatarImageTarget);
+            loadImageFromNetwork(holder, employee);
         }
+    }
+
+    private void loadImageFromInternalStorage(@NonNull File file, EmployeeHolder holder, Employee employee) {
+        holder.avatarImageTarget = helpers.getPicassoHelper().createPicassoImageTargetForEmployee(employee.getId(),
+                true,
+                new PicassoHelper.ImageLoadingListener() {
+                    @Override
+                    public void onSuccess(Bitmap bitmapImage) {
+                        holder.avatar.setImageBitmap(bitmapImage);
+                    }
+
+                    @Override
+                    public void onError(IOException ex) {
+                    }
+
+                    @Override
+                    public void onBitmapFailed(Exception ex, Drawable errorDrawable) {
+                        loadImageFromNetwork(holder, employee);
+                    }
+                });
+        Picasso.get().load(file).into(holder.avatarImageTarget);
+    }
+
+    private void loadImageFromNetwork(EmployeeHolder holder, Employee employee) {
+        holder.avatarImageTarget = helpers.getPicassoHelper().createPicassoImageTargetForEmployee(
+                employee.getId(),
+                false,
+                new PicassoHelper.ImageLoadingListener() {
+                    @Override
+                    public void onSuccess(Bitmap bitmapImage) {
+                        holder.avatar.setImageBitmap(bitmapImage);
+                    }
+
+                    @Override
+                    public void onError(IOException ex) {
+                    }
+
+                    @Override
+                    public void onBitmapFailed(Exception ex, Drawable errorDrawable) {
+                    }
+                });
+        Picasso.get().load(employee.getAvatar()).noFade().into(holder.avatarImageTarget);
     }
 
 }

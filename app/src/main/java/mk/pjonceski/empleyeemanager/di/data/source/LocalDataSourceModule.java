@@ -6,7 +6,7 @@ import mk.pjonceski.empleyeemanager.data.source.local.AppDBHelper;
 import mk.pjonceski.empleyeemanager.data.source.local.datasource.EmployeeLocalDataSource;
 import mk.pjonceski.empleyeemanager.data.source.local.datasource.EmployeeLocalDataSourceImpl;
 import mk.pjonceski.empleyeemanager.utils.AppExecutors;
-import mk.pjonceski.empleyeemanager.utils.helpers.Helpers;
+import mk.pjonceski.empleyeemanager.utils.helpers.ServiceHelper;
 
 /**
  * Dagger module to provide instances for {@link mk.pjonceski.empleyeemanager.data.source.local}
@@ -17,7 +17,7 @@ public abstract class LocalDataSourceModule {
     @Provides
     static EmployeeLocalDataSource provideEmployeeLocalDataSource(AppDBHelper appDBHelper,
                                                                   AppExecutors appExecutors,
-                                                                  Helpers helpers) {
-        return new EmployeeLocalDataSourceImpl(appDBHelper, appExecutors, helpers);
+                                                                  ServiceHelper serviceHelper) {
+        return new EmployeeLocalDataSourceImpl(appDBHelper, appExecutors, serviceHelper);
     }
 }

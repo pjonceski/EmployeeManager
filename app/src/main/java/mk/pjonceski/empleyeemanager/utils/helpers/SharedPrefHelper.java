@@ -24,7 +24,7 @@ public class SharedPrefHelper {
     private final static String DATA_SOURCE_KEY = "data_source_type_key";
     private SharedPreferences sharedPreferences;
 
-    SharedPrefHelper(App app) {
+    public SharedPrefHelper(App app) {
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(app);
     }
 
