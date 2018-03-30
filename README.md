@@ -4,9 +4,9 @@ This is sample application for managing employees providing all details about th
 
 ### About Employee Manager ###
 
-Employee manager is an android application that implements the viper clean architecture and android best practices.
-The ui is designed following the material design guidelines.
+Employee manager is an android application with purpose to show implementation of the viper clean architecture and android best practices.
 To achieve clean application and responsive ui the application implements Dagger 2.1+, RxJava2 2.+, RxAndroid 2.+, ButterKnife 2.+, Retrofit 2.+, ConstraintLayout, RecyclerView, Firebase JobDispatcher, Picasso 2.7+.
+The ui is designed following the material design guidelines.
 
 ### Features of Employee Manager ###
 
