@@ -39,7 +39,7 @@ public final class EmployeeEntityContract {
      * Returns string representation of script for creating table {@link #TABLE_EMPLOYEE}.
      */
     public static final String CREATE_TABLE_EMPLOYEE = String.format("CREATE TABLE %s (" +
-                    "%s INTEGER PRIMARY KEY , %s TEXT, %s TEXT, %s TEXT, %s TEXT, %s TEXT, %s INTEGER UNSCHEDULED 0)",
+                    "%s INTEGER PRIMARY KEY , %s TEXT, %s TEXT, %s TEXT, %s TEXT, %s TEXT, %s INTEGER DEFAULT 0)",
             TABLE_EMPLOYEE,
             EmployeeColumns._ID,
             EmployeeColumns.NAME,
